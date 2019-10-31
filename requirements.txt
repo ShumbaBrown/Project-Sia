@@ -1,0 +1,17 @@
+User Requirements
+
+1. App must keep users up to date on registration deadlines
+2. App must keep users up to date on medical requirements
+3. App must keep users up to date on internship/part time job events
+4. App must inform users of graduation related deadlines
+5. App must notify users of full-time employment opportunities
+6. App must inform users of possible class options
+7. App must encourage student participation in organizations
+8. App must encourage student engagement with their corresponding departments
+
+Functional Requirements
+1 App must be able to generate a time-sensitive checklist of tasks
+2 App must be able to draw upon all provided courses within the institution, as well as their associated prerequisites
+3 App must be able to access organization information as well as criteria for new members
+4 App must be able to accurately access registration and medical requirements for the typical incoming student
+5 App must be able to access calendar of school events (visiting organizations, career fairs, etc.)
