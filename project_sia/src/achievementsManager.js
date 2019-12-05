@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class AchievementsManager {
+class achievementsManager {
 	/*
 	Responsible for updating Achievements associated with a user.
 
 	*/
-	
+
 	fetchUserAchievements() {
 
 	}
@@ -24,3 +24,5 @@ class AchievementsManager {
 	}
 
 }
+
+export default achievementsManager;
