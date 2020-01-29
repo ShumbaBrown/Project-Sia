@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import notification from './notification';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           Learn React
         </a>
       </header>
+      //How can I call the service worker/notification.js
+      //  from here to create a notification?
     </div>
 
     // <!-- The core Firebase JS SDK is always required and must be listed first -->
