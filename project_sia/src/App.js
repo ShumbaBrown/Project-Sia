@@ -20,8 +20,6 @@ function App() {
           Learn React
         </a>
       </header>
-      //How can I call the service worker/notification.js
-      //  from here to create a notification?
     </div>
 
     // <!-- The core Firebase JS SDK is always required and must be listed first -->

@@ -2,50 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
-    /*
-    Display of information pertaining to a 
-    user's current achievement(s)
-    and accomplishments
-    */
+/*********************************
 
+    The Notifications API allows notifications to 
+    be defined:
 
-const requestPushNotifications = async () => {
-	
-	const permission = await window.Notification.requestPermission();
-	// possible values are 'granted','denied', or 'default'
-	console.log(Notification.permission);
-	if (permission !== 'granted') {
-		throw new Error('Permission not granted for Notification');
-	}
-}
+    ------------
+	Notification!
+	here is a notification
+	(TAB)
+	------------
 
-const showLocalNotification  = (title, body, swRegistration) => {
+    navigator.serviceWorker.ready.then(function(serviceWorker) {
+	serviceWorker.showNotification(title,options);
+    })
+*********************************/
+
+function sendNotification() {
+	// const img = specific notification image
+	const text = "here is a notification";
+	const title = "Title";
 	const options = {
-		body,
-	}
-	swRegistration.showNotification(title, options);
+		body: text,
+		//image: img
+		actions: [{action: "Detail", title: "View", icon: "https://via.placeholder.com/128/ff0000"}]
+	};
+
+	navigator.serviceWorker.ready.then(function(serviceWorker) {
+		serviceWorker.showNotification(title, options);
+	});
 }
 
-const check  = () => {
-	if (!('serviceWorker' in navigator)) {
-		throw new Error('No service Worker support!')
-	}
-	if (!('PushManager' in window)) {
-		throw new Error('No Push API Support!')
-	}
-}
-
-const main = async () => {
-	check();
-	const swRegistration = await serviceWorker.register();
-	// calls standard sw function, not sw(config)
-	const permission = await requestPushNotifications();
-
-}
-
-main();
 export {
-	requestPushNotifications,
-	check,
-	main
-};
+	sendNotification
+}
