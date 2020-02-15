@@ -12,8 +12,8 @@ class event {
         name = 'UNSET',
         description = 'UNSET',
         location = 'UNSET',
-        start_date_time = 'UNSET',
-        end_date_time = 'UNSET',
+        start_date_time = new Date(),
+        end_date_time = new Date(),
         tags = []) {
 
         this.id = id;
