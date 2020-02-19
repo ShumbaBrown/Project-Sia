@@ -8,7 +8,7 @@ Also classifies item with tags, allowing filtered searches.
 Example tags: "Freshman", "Computer Science"
 */
 class event {
-    constructor(id = -1,
+    constructor(id = 'UNSET',
         name = 'UNSET',
         description = 'UNSET',
         location = 'UNSET',
