@@ -75,27 +75,6 @@ class Backend extends React.Component {
       return events;
     }
 
-    // getBostonAreaWeather = functions.https.onRequest(async (request, response) => {
-    //   try {
-    //     const querySnapshot = await firebase.firestore().collection("events").get()
-    //     const promises = []
-    //     querySnapshot.forEach((doc) => {
-    //       promises.push(`${doc.id} => ${doc.data().name}`)
-    //     })
-    //     const snapshots = await Promise.all(promises)
-    //     const results = []
-    //     snapshots.forEach(snap => {
-    //       const data = snap.data()
-    //       results.push(data)
-    //     })
-    //
-    //     response.send(results)
-    //   } catch (error) {
-    //     console.error(error)
-    //     response.status(500).send(error)
-    //   }
-    // })
-
     render() {
       return ( < p > Backend: Hello world! < /p>);
       }
