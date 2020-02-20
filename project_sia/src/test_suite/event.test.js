@@ -11,8 +11,8 @@ describe("Event initialization tests",() => {
             name: 'UNSET',
             description: 'UNSET',
             location: 'UNSET',
-            start_date_time: 'UNSET',
-            end_date_time: 'UNSET',
+            start_date_time: new Date(),
+            end_date_time: new Date(),
             tags: []
         };
 
@@ -25,18 +25,18 @@ describe("Event initialization tests",() => {
             'Sample',
             'Sample desc',
             'Sample location',
-            '2019-10-11/09:00',
-            '2019-10-11/13:0 0',
-            ['Freshman','Compu ter Science']
+            new Date('March 15, 2012 9:31:00'),
+            new Date('March 17, 2012 9:53:00'),
+            ['Freshman','Computer Science']
             );
     
         const expected_event = {
             id: 123,
             name: 'Sample',
             description: 'Sample desc',
-            location: 'Sample loca tion',
-            start_date_time: '2019-10-11/09:00',
-            end_date_time: '2019-10-11/13:00',
+            location: 'Sample location',
+            start_date_time: new Date('March 15, 2012 9:31:00'),
+            end_date_time: new Date('March 17, 2012 9:53:00'),
             tags: ['Freshman','Computer Science']
         };
     
