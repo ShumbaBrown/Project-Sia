@@ -17,12 +17,21 @@ class Home extends React.Component {
     this.props.navigation.navigate('Login')
   }
   render() {
-    return ( 
-    <View style={styles.container}>
-      <Text> Profile Screen </Text> 
-      <Text> {this.props.user.email} </Text> 
-      <Button title='Logout' onPress={this.handleSignout}/>
-       </View>
+    return ( <
+      View style = {
+        styles.container
+      } >
+      <
+      Text > Profile Screen < /Text> <
+      Text > {
+        this.props.user.email
+      } < /Text> <
+      Button title = 'Logout'
+      onPress = {
+        this.handleSignout
+      }
+      /> <
+      /View>
     )
   }
 }
