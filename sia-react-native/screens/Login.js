@@ -11,7 +11,9 @@ import {
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateEmail, updatePassword, login } from '../actions/user'
-
+import Backend from '../Backend.js'
+import event from '../classes/event.js'
+import user from '../classes/user.js'
 class Login extends React.Component {
   state = {
     email: "",

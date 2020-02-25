@@ -10,6 +10,8 @@ import {
   connect
 } from 'react-redux'
 import Firebase from '../Firebase'
+import Backend from '../Backend.js'
+import user from '../classes/user.js'
 
 class Home extends React.Component {
   handleSignout = () => {
@@ -17,21 +19,12 @@ class Home extends React.Component {
     this.props.navigation.navigate('Login')
   }
   render() {
-    return ( <
-      View style = {
-        styles.container
-      } >
-      <
-      Text > Profile Screen < /Text> <
-      Text > {
-        this.props.user.email
-      } < /Text> <
-      Button title = 'Logout'
-      onPress = {
-        this.handleSignout
-      }
-      /> <
-      /View>
+    return ( <View style={styles.container}>
+				<Text>Profile Screen</Text>
+				<Text>{this.props.user.email}</Text>
+        <Text>{this.props.user.uid}</Text>
+				<Button title='Logout' onPress={this.handleSignout} />
+			</View>
     )
   }
 }
