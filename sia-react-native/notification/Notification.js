@@ -1,17 +1,49 @@
-import React from 'react'
+import React  from 'react'
+import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native'
 
-// LocalNotification is responsible for creating notifications
-// that appear inside the application/while the application is active.
-class LocalNotification extends React.Component {
-    constructor() {
-        let items = {
-            title: '',
-            body: '',
+// Component for Local Notifications in the app. 
+class Notification extends React.Component {
+    
+    // TODO: Finalize Animation 
+    constructor(props) {
+        super(props)
+        this.state = {willDisplay: false, tags: []}
+        this.title = 'Notification Title',
+        this.message = 'Notification Message'
+        
+    }
+    toggleDisplay = () => {
+        this.setState({
+            willDisplay: !this.state.willDisplay
+        })
+    }
+    render() {
+        
+        return (
+            <View>
+            {this.state.willDisplay && 
+                <View style={styles.NotifContainer}>
+                    <Text style={[styles.TextStyles, styles.NotifTitle]}>{this.title}</Text>
+                    <Text style={styles.TextStyles}>{this.message}</Text>
+                </View>
             }
-        }
-        tags = []
+            <Button title='press' onPress={this.toggleDisplay}></Button>
+            </View>
+        )
+    }
 }
-// Separate into one central class that is the parent
-// the two subclasses, local and push notifications **if there is
-// something that differentiates the two. If not just use one.
-export default {LocalNotification}
+const styles = StyleSheet.create({
+    NotifContainer: {
+        backgroundColor: '#3A64CF',
+        padding: 30,
+
+    },
+    TextStyles: {
+        color: 'white'
+    },
+    NotifTitle: {
+
+    },
+})
+
+export default Notification

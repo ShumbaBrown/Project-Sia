@@ -5,13 +5,19 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "serve": "node -r esm server/index.js"
   },
   "dependencies": {
     "@react-native-community/push-notification-ios": "^1.0.6",
     "dotenv": "^8.2.0",
+    "esm": "^3.0.28",
     "expo": "~36.0.0",
+    "expo-permissions": "^8.0.0",
+    "expo-server-sdk": "^3.4.0",
+    "express": "^4.17.1",
     "firebase": "^7.8.2",
+    "ngrok": "^3.2.7",
     "react": "16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "0.61.5",
@@ -26,6 +32,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
+    "react-devtools": "^4.4.0",
     "react-native-gesture-handler": "1.5.0"
   },
   "private": true
