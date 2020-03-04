@@ -4,7 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Button
+  Button,
+  TouchableOpacity
 } from 'react-native'
 import {
   connect
@@ -12,6 +13,7 @@ import {
 import Firebase from '../Firebase'
 import Backend from '../Backend.js'
 import user from '../classes/user.js'
+import Notification from '../classes/notification'
 
 class Home extends React.Component {
   handleSignout = () => {
@@ -24,6 +26,9 @@ class Home extends React.Component {
 				<Text>{this.props.user.email}</Text>
         <Text>{this.props.user.uid}</Text>
 				<Button title='Logout' onPress={this.handleSignout} />
+        <TouchableOpacity>
+          <Notification></Notification>
+        </TouchableOpacity>
 			</View>
     )
   }
