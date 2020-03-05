@@ -3,7 +3,7 @@ Includes common information full name and related email address.
 Can readily be edited by the user; contains numerous getter/setter functions.
 */
 class user {
-  constructor(id = "UNSET",
+  constructor(id = -1,
     first_name = "UNSET",
     last_name = "UNSET",
     email = "UNSET",
@@ -29,6 +29,15 @@ class user {
     // and filter events.
     this.interest_tags = interest_tags;
     return;
+  }
+
+  setID(id) {
+    this.id = id;
+    return;
+  }
+
+  getID() {
+    return this.id;
   }
 
   setFirstName(first_name) {
