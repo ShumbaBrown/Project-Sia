@@ -5,6 +5,7 @@ Eg. Number of events created
 
 class statistic {
     constructor(
+        id = -1,
         name = "UNSET",
         description = "UNSET",
         isBoolean = false,
@@ -12,6 +13,7 @@ class statistic {
         quantity = 0) {
         
         //provides labels for the statistic that the user is able to see
+        this.id = id;
         this.name = name;
         this.description = description;
 
