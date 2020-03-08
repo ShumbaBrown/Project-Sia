@@ -138,7 +138,6 @@ describe("Event List modification tests",() => {
         expect(generated_event_list).toEqual(expected_event_list);
     });
 
-    
     it("can successfully indicate when it cannot remove by id", () => {
         const event_a = new event(
             123,
@@ -162,7 +161,6 @@ describe("Event List modification tests",() => {
         const generated_event_list = new eventList([event_a,event_b]);
 
         let response = generated_event_list.removeEventByID(789);
-        
 
         const expected_event_list = {
             events: [
@@ -191,7 +189,6 @@ describe("Event List modification tests",() => {
         expect(generated_event_list).toEqual(expected_event_list);
     });
 
-    
     it("can successfully get an event by id", () => {
         const event_a = new event(
             123,
@@ -257,7 +254,7 @@ describe("Event List modification tests",() => {
         expect(generated_event_list).toEqual(expected_event_list);
     });
 
-    it("can successfully inducate when it cannot get id", () => {
+    it("can successfully indicate when it cannot get id", () => {
         const event_a = new event(
             123,
             'Sample A',

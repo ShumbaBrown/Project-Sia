@@ -5,6 +5,7 @@ describe("Statistic initialization tests",() => {
         const generated_statistic = new statistic();
 
         const expected_statistic = {
+            id: -1,
             name: "UNSET",
             description: "UNSET",
             isBoolean: false,
@@ -17,6 +18,7 @@ describe("Statistic initialization tests",() => {
 
     it("declares a object based on passed parameters", () => {
         const generated_statistic = new statistic(
+            123,
             "Sample Stat",
             "Given Description",
             true,
@@ -25,6 +27,7 @@ describe("Statistic initialization tests",() => {
         );
 
         const expected_statistic = {
+            id: 123,
             name: "Sample Stat",
             description: "Given Description",
             isBoolean: true,
@@ -39,6 +42,7 @@ describe("Statistic initialization tests",() => {
 describe("Quantity Statistic Modification",() => {
     it("successfully increments by default value", () => {
         let generated_statistic = new statistic(
+            123,
             "Events Created",
             "Number of events this user has made",
             false,
@@ -49,6 +53,7 @@ describe("Quantity Statistic Modification",() => {
         generated_statistic.increment();
 
         const expected_statistic = {
+            id: 123,
             name: "Events Created",
             description: "Number of events this user has made",
             isBoolean: false,
@@ -61,6 +66,7 @@ describe("Quantity Statistic Modification",() => {
 
     it("successfully increments by passed value", () => {
         let generated_statistic = new statistic(
+            123,
             "Events Created",
             "Number of events this user has made",
             false,
@@ -71,6 +77,7 @@ describe("Quantity Statistic Modification",() => {
         generated_statistic.increment(4);
 
         const expected_mid_statistic = {
+            id: 123,
             name: "Events Created",
             description: "Number of events this user has made",
             isBoolean: false,
@@ -85,6 +92,7 @@ describe("Quantity Statistic Modification",() => {
         generated_statistic.increment(2);
 
         const expected_end_statistic = {
+            id: 123,
             name: "Events Created",
             description: "Number of events this user has made",
             isBoolean: false,
@@ -99,6 +107,7 @@ describe("Quantity Statistic Modification",() => {
 describe("Checkbox Statistic Modification",() => {
     it("successfully flags with default value", () => {
         let generated_statistic = new statistic(
+            123,
             "Backup Email Established",
             "Identifies if you have set up a backup email",
             true,
@@ -109,6 +118,7 @@ describe("Checkbox Statistic Modification",() => {
         generated_statistic.changeFlag();
 
         const expected_statistic = {
+            id: 123,
             name: "Backup Email Established",
             description: "Identifies if you have set up a backup email",
             isBoolean: true,
@@ -121,6 +131,7 @@ describe("Checkbox Statistic Modification",() => {
 
     it("successfully flags with passed value", () => {
         let generated_statistic = new statistic(
+            123,
             "Backup Email Established",
             "Identifies if you have set up a backup email",
             true,
@@ -131,6 +142,7 @@ describe("Checkbox Statistic Modification",() => {
         generated_statistic.changeFlag();
 
         const expected_mid_statistic = {
+            id: 123,
             name: "Backup Email Established",
             description: "Identifies if you have set up a backup email",
             isBoolean: true,
@@ -143,6 +155,7 @@ describe("Checkbox Statistic Modification",() => {
         generated_statistic.changeFlag(false);
 
         const expected_end_statistic = {
+            id: 123,
             name: "Backup Email Established",
             description: "Identifies if you have set up a backup email",
             isBoolean: true,
