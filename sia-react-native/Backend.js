@@ -2,6 +2,7 @@ import React from 'react';
 import Firebase from './Firebase'
 import event from './classes/event.js'
 import user from './classes/user.js'
+import eventList from './classes/eventList'
 
 class Backend extends React.Component {
   constructor() {
@@ -54,10 +55,16 @@ class Backend extends React.Component {
         events.push(new event(doc.id, doc.data().name, doc.data().description,
           doc.data().location, doc.data().start_date_time, doc.data().end_date_time, []))
       });
-      return events
+
 
     });
+    // console.log(new eventList(events))
+    return new eventList(events);
   }
+  // Usage 
+  // import Backend from '../Backend.js'
+  // backend = new Backend;
+  // backend.getEvents().then((value) => console.log(value));
 
   userConverter = {
     toFirestore: function(user) {
