@@ -1,3 +1,5 @@
+import statisticList from "./statisticList";
+
 /*User class is describes all attributes of an app user.
 Includes common information full name and related email address.
 Can readily be edited by the user; contains numerous getter/setter functions.
@@ -11,7 +13,10 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-    interest_tags = new Set()) {
+    interest_tags = new Set(),
+    statLibrary = new statisticList(),
+    achievements = []
+    ) {
     this.id = id;
 
     //Collects typical user information for display/UX purposes
@@ -28,79 +33,11 @@ class user {
     //Collects additional interests of the user to further identify
     // and filter events.
     this.interest_tags = interest_tags;
+
+    //Tracks user state and rewards them for a list of milestones
+    this.statLibrary = statLibrary;
+    this.achievements = achievements;
     return;
-  }
-
-  setID(id) {
-    this.id = id;
-    return;
-  }
-
-  getID() {
-    return this.id;
-  }
-
-  setFirstName(first_name) {
-    this.first_name = first_name;
-    return;
-  }
-
-  getFirstName() {
-    return this.first_name;
-  }
-
-  setLastName(last_name) {
-    this.last_name = last_name;
-    return;
-  }
-
-  getLastName() {
-    return this.last_name;
-  }
-
-  setEmail(email) {
-    this.email = email;
-    return;
-  }
-
-  getEmail() {
-    return this.email;
-  }
-
-  setAge(age) {
-    this.age = age;
-    return;
-  }
-
-  getAge() {
-    return this.age;
-  }
-
-  setGender(gender) {
-    this.gender = gender;
-    return;
-  }
-
-  getGender() {
-    return this.gender;
-  }
-
-  setClassification(classification) {
-    this.classification = classification;
-    return;
-  }
-
-  getClassification() {
-    return this.classification;
-  }
-
-  setMajor(major) {
-    this.major = major;
-    return;
-  }
-
-  getMajor() {
-    return this.major;
   }
 
   addInterestTag(new_interest_tag) {
@@ -117,6 +54,17 @@ class user {
 
   getInterestTags() {
     return this.interest_tags;
+  }
+
+  updateAchievements(achievement_library=[]) {
+    this.achievements = [];
+    for(let ach_cycler = 0; ach_cycler < achievement_library.length; ach_cycler++) {
+      let cur_achievement = achievement_library[ach_cycler];
+
+      if(cur_achievement.areRequirementsMet(this.statLibrary)) {
+        this.achievements.push(cur_achievement);
+      }
+    }
   }
 }
 export default user;
