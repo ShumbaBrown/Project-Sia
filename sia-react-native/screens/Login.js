@@ -21,6 +21,12 @@ import {
   getUser
 } from '../actions/user'
 
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 class Login extends React.Component {
   state = {
     email: "",
@@ -42,8 +48,8 @@ class Login extends React.Component {
             <Text style={styles.logo}>SIA</Text>
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputBox}
-                    defaultValue={this.props.auth.email}
+                    style={styles.inputText}
+                    value={this.props.user.email}
                     onChangeText={email => this.props.updateEmail(email)}
                     placeholder='Email'
                     placeholderTextColor="#003f5c"
@@ -52,8 +58,8 @@ class Login extends React.Component {
             </View>
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputBox}
-                    value={this.props.auth.password}
+                    style={styles.inputText}
+                    value={this.props.user.password}
                     onChangeText={password => this.props.updatePassword(password)}
                     placeholder='Password'
                     placeholderTextColor="#003f5c"
