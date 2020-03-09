@@ -1,4 +1,4 @@
-import event from './event'
+import event from './event';
 
 /*Event list class holds a collection of events and tackles
 functions performed on an event collection.
