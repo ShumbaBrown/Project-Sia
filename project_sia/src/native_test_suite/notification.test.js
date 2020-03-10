@@ -9,11 +9,12 @@ describe("Notification initialization", () => {
         spyOn(newNotification, 'toggleDisplay')
     })
     it("creates a new notification object", () => {
-        
+        const newNotification = new Notification()
         const expectNotification = {
             state : {willDisplay: false},
             title : 'Notification Title',
             message : 'Notification Message',
+        
             type : 'UNSET'
         }
         expect(newNotification.state).toEqual(expectNotification.state)
