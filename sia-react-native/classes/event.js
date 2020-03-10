@@ -1,4 +1,3 @@
-
 /*Event class is responsible for all scenarios that are of interest to the
 student.
 Includes common information such as name and venue.
