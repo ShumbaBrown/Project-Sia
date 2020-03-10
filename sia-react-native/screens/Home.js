@@ -13,7 +13,7 @@ import {
 import Firebase from '../Firebase'
 import Backend from '../Backend.js'
 import user from '../classes/user.js'
-import Notification from '../classes/notification'
+import Notification from '../notification/notification'
 
 class Home extends React.Component {
   handleSignout = () => {

@@ -2,21 +2,23 @@ import React  from 'react'
 import {View, Text, Button, TouchableOpacity, StyleSheet, Animated} from 'react-native'
 
 // Component for Local Notifications in the app. 
-class Notification {
+class Notification extends React.Component{
+
     
     // TODO: Finalize Animation + triggers 
     constructor(props) {
-        this.state = {willDisplay: false, tags: []}
+        super(props)
+        this.state = {willDisplay: false}
         this.title = 'Notification Title'
         this.message = 'Notification Message'
-
+        this.tags = []
         // Notification Types 
         const types = {
             ACHIEVEMENT: 'Achievement',
             EVENT: 'Event',
             PROFILE: 'Profile',
         }
-        let type = 'UNSET'
+        this.type = 'UNSET'
     }
     toggleDisplay = () => {
         this.setState({
