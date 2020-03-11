@@ -362,7 +362,7 @@ describe("Event List filtering tests",() => {
         'Sample location E',
         new Date('March 22, 2012 9:31:00'),
         new Date('March 30, 2012 9:53:00'),
-        ['Junior','Biology',]
+        ['Junior','Biology']
         );
 
     const generated_event_list = new eventList([event_a,event_b,event_c,event_d,event_e]);
