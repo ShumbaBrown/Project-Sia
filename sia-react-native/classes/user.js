@@ -11,7 +11,7 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-    interest_tags = new Set()) {
+    interest_tags = []) {
     this.id = id;
 
     //Collects typical user information for display/UX purposes
