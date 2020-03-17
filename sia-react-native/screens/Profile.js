@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-<<<<<<< HEAD
+
 import { updateEmail, updatePassword, login, signup } from '../actions/user'
 import Backend from '../Backend.js'
 import event from '../classes/event.js'
@@ -35,28 +35,28 @@ class Profile extends React.Component {
   updateUser = () => {
         // this.props.login()
         this.props.updateUser(this.props.user)
-=======
-import { updateEmail, updatePassword, login } from '../actions/user'
-import Backend from '../Backend.js'
-import event from '../classes/event.js'
-import user from '../classes/user.js'
+      }
 
-class Profile extends React.Component {
-  state = {
-    email: "",
-    password: ""
-  }
 
   handleLogin = () => {
         this.props.login()
->>>>>>> Adding support for user in state
-        this.props.navigation.navigate('Home')
+  }
+  updateUser = () => {
+        // this.props.login()
+        this.props.updateUser(this.props.user)
+
     }
 
   render() {
         return (
             <View style={styles.container}>
-<<<<<<< HEAD
+
+                <TextInput
+                    style={styles.inputBox}
+                    value={this.props.user.email}
+                    onChangeText={email => this.props.updateEmail(email)}
+                    placeholder='Email'></TextInput>
+
                 <Text>{this.props.user.id}</Text>
                 <Text>{this.props.user.first_name}</Text>
                 <Text>{this.props.user.last_name}</Text>
@@ -65,18 +65,10 @@ class Profile extends React.Component {
                     value={this.props.user.first_name}
                     onChangeText={first_name => this.props.updateFirstName(first_name)}
                     placeholder='First Name'
-=======
-                <TextInput
-                    style={styles.inputBox}
-                    value={this.props.user.email}
-                    onChangeText={email => this.props.updateEmail(email)}
-                    placeholder='Email'
->>>>>>> Adding support for user in state
                     autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.inputBox}
-<<<<<<< HEAD
                     value={this.props.user.last_name}
                     onChangeText={last_name => this.props.updateLastName(last_name)}
                     placeholder='Last Name'
@@ -88,20 +80,10 @@ class Profile extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.goBack}>
                     <Text style={styles.buttonText}>Back</Text>
                 </TouchableOpacity>
-=======
-                    value={this.props.user.password}
-                    onChangeText={password => this.props.updatePassword(password)}
-                    placeholder='Password'
-                    secureTextEntry={true}
-                />
-                <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
                 <Button
                     title="Don't have an account yet? Sign up"
                     onPress={() => this.props.navigation.navigate('Signup')}
                 />
->>>>>>> Adding support for user in state
             </View>
         )
     }
@@ -145,7 +127,6 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => {
-<<<<<<< HEAD
   return bindActionCreators({
     updateEmail,
     updatePassword,
@@ -163,20 +144,12 @@ const mapDispatchToProps = dispatch => {
   }, dispatch)
 }
 
+
 const mapStateToProps = state => {
   return {
       auth: state.auth,
       user: state.user
   }
-=======
-    return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
-}
-
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
->>>>>>> Adding support for user in state
 }
 
 export default connect(

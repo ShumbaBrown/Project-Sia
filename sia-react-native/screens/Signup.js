@@ -26,36 +26,28 @@ import {
 } from '../actions/user'
 
 class Signup extends React.Component {
-<<<<<<< HEAD
+  
+  constructor() {
+    state = {
+      name: "",
+      email: "",
+      password: ""
+    }
+  }
+  
+
   handleNextPage = () => {
     this.props.signup().then( () => {
       this.props.getUser()
     })
     this.props.navigation.navigate('Register')
-=======
-  state = {
-    name: "",
-    email: "",
-    password: ""
   }
-  handleSignUp = () => {
-    this.props.signup().then( () => {
-      this.props.getUser()
-    })
-    this.props.navigation.navigate('Home')
->>>>>>> Adding support for user in state
-  }
-
   render() {
     return ( 
     <View style={styles.container}>
       <View style={styles.inputView}>
 				<TextInput
-<<<<<<< HEAD
 					style={styles.inputText}
-=======
-					style={styles.inputBox}
->>>>>>> Adding support for user in state
 					value={this.props.auth.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email or username'
@@ -64,11 +56,8 @@ class Signup extends React.Component {
         </View>
         <View style={styles.inputView}>
 				<TextInput
-<<<<<<< HEAD
 					style={styles.inputText}
-=======
 					style={styles.inputBox}
->>>>>>> Adding support for user in state
 					value={this.props.auth.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
