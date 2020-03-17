@@ -13,9 +13,8 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-
     interest_tags = [],
-    statLibrary = this._generateDefaultStatistics(),
+    statLibrary = new statisticList(),
     achievements = []
     ) {
     this.id = id;
