@@ -1,72 +1,27 @@
-import Firebase, { db } from '../Firebase.js'
+import Backend from '../Backend.js'
 
 // define types
-export const UPDATE_EMAIL = 'UPDATE_EMAIL'
-export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
-export const LOGIN = 'LOGIN'
-export const SIGNUP = 'SIGNUP'
+export const GET_USER = 'GET_USER'
 
 // actions
-
-export const updateEmail = email => {
-	return {
-		type: UPDATE_EMAIL,
-		payload: email
-	}
-}
-
-export const updatePassword = password => {
-	return {
-		type: UPDATE_PASSWORD,
-		payload: password
-	}
-}
-
-export const login = () => {
+export const getUser = () => {
 	return async (dispatch, getState) => {
 		try {
-			const { email, password } = getState().user
-			const response = await Firebase.auth().signInWithEmailAndPassword(email, password)
-
-			dispatch(getUser(response.user.uid))
-		} catch (e) {
-			alert(e)
+			let backend = new Backend;
+			backend.getCurrentUser().then(user => {
+				dispatch(setUser(user))
+			})
+		} catch (error) {
+			console.log(error)
 		}
 	}
 }
 
-export const getUser = uid => {
+export function setUser(user) {
+  // return {type: GET_USER, payload: user};
 	return async (dispatch, getState) => {
 		try {
-			const user = await db
-				.collection('users')
-				.doc(uid)
-				.get()
-
-			dispatch({ type: LOGIN, payload: user.data() })
-		} catch (e) {
-			alert(e)
-		}
-	}
-}
-
-export const signup = () => {
-	return async (dispatch, getState) => {
-		try {
-			const { email, password } = getState().user
-			const response = await Firebase.auth().createUserWithEmailAndPassword(email, password)
-			if (response.user.uid) {
-				const user = {
-					uid: response.user.uid,
-					email: email
-				}
-
-				db.collection('users')
-					.doc(response.user.uid)
-					.set(user)
-
-				dispatch({ type: SIGNUP, payload: user })
-			}
+			dispatch({ type: GET_USER, payload: user})
 		} catch (e) {
 			alert(e)
 		}

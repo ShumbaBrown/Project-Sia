@@ -12,16 +12,23 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateEmail, updatePassword, login } from '../actions/user'
+import { updateEmail, updatePassword, login } from '../actions/auth'
 import Backend from '../Backend.js'
 import event from '../classes/event.js'
 import user from '../classes/user.js'
+import {
+  getUser
+} from '../actions/user'
+
+
+
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
   </TouchableWithoutFeedback>
 );
+
 class Login extends React.Component {
   state = {
     email: "",
@@ -29,7 +36,9 @@ class Login extends React.Component {
   }
 
   handleLogin = () => {
-        this.props.login()
+        this.props.login().then( () => {
+          this.props.getUser()
+        })
         this.props.navigation.navigate('Home')
     }
 
@@ -41,8 +50,8 @@ class Login extends React.Component {
             <Text style={styles.logo}>SIA</Text>
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputText}
-                    value={this.props.user.email}
+                    style={styles.inputBox}
+                    value={this.props.auth.email}
                     onChangeText={email => this.props.updateEmail(email)}
                     placeholder='Email'
                     placeholderTextColor="#003f5c"
@@ -51,8 +60,8 @@ class Login extends React.Component {
             </View>
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputText}
-                    value={this.props.user.password}
+                    style={styles.inputBox}
+                    value={this.props.auth.password}
                     onChangeText={password => this.props.updatePassword(password)}
                     placeholder='Password'
                     placeholderTextColor="#003f5c"
@@ -139,11 +148,12 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
+    return bindActionCreators({ updateEmail, updatePassword, login, getUser}, dispatch)
 }
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth,
         user: state.user
     }
 }
