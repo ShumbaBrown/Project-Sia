@@ -58,10 +58,9 @@ class Backend extends React.Component {
 
 
     });
-    // console.log(new eventList(events))
     return new eventList(events);
   }
-  // Usage 
+  // Usage
   // import Backend from '../Backend.js'
   // backend = new Backend;
   // backend.getEvents().then((value) => console.log(value));
@@ -97,14 +96,13 @@ class Backend extends React.Component {
   }
 
   async getCurrentUser() {
-    let user = Firebase.auth().currentUser;
+    let currentUser = Firebase.auth().currentUser;
     const db = Firebase.firestore();
-    await db.collection("users").doc(user.uid)
+    return await db.collection("users").doc(currentUser.uid)
       .get()
       .then(function(doc) {
         if (doc.exists) {
-          console.log(doc.data())
-          return new user(doc.data().id, doc.data().first_name, doc.data().last_name, doc.data().email_address,
+          return new user(doc.data().uid, doc.data().first_name, doc.data().last_name, doc.data().email_address,
             doc.data().age, doc.data().gender, doc.data().classification, doc.data().major, doc.data().interest_tags)
         } else {
           console.log("No such document!");
