@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+<<<<<<< HEAD
 import { GET_USER,
   UPDATE_USER,
   UPDATE_FIRST_NAME,
@@ -8,11 +9,15 @@ import { GET_USER,
   UPDATE_CLASSIFICATION,
   UPDATE_MAJOR,
   UPDATE_INTEREST_TAGS } from '../actions/user'
+=======
+import { GET_USER } from '../actions/user'
+>>>>>>> Adding support for user in state
 
 export default function user(state = {}, action) {
     switch (action.type) {
         case GET_USER:
             return action.payload
+<<<<<<< HEAD
         case UPDATE_USER:
             return action.payload
         case UPDATE_FIRST_NAME:
@@ -29,6 +34,8 @@ export default function user(state = {}, action) {
             return { ...state, major: action.payload }
         case UPDATE_INTEREST_TAGS:
             return { ...state, interest_tags: action.payload }
+=======
+>>>>>>> Adding support for user in state
         default:
             return state
     }

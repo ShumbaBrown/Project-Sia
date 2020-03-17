@@ -2,6 +2,7 @@ import Backend from '../Backend.js'
 
 // define types
 export const GET_USER = 'GET_USER'
+<<<<<<< HEAD
 export const UPDATE_USER = 'UPDATE_USER'
 export const UPDATE_FIRST_NAME = 'UPDATE_FIRST_NAME'
 export const UPDATE_LAST_NAME = 'UPDATE_LAST_NAME'
@@ -67,6 +68,16 @@ export const updateUser = (user) => {
 			let backend = new Backend;
 			backend.updateUser(user).then( () => {
 				dispatch({ type: UPDATE_USER, payload: user})
+=======
+
+// actions
+export const getUser = () => {
+	return async (dispatch, getState) => {
+		try {
+			let backend = new Backend;
+			backend.getCurrentUser().then(user => {
+				dispatch(setUser(user))
+>>>>>>> Adding support for user in state
 			})
 		} catch (error) {
 			console.log(error)
@@ -74,6 +85,7 @@ export const updateUser = (user) => {
 	}
 }
 
+<<<<<<< HEAD
 export const getUser = () => {
 	return async (dispatch, getState) => {
 		try {
@@ -91,6 +103,12 @@ export function setUser(user) {
   // return {type: GET_USER, payload: user};
 	return async (dispatch, getState) => {
 		try {
+=======
+export function setUser(user) {
+  // return {type: GET_USER, payload: user};
+	return async (dispatch, getState) => {
+		try {
+>>>>>>> Adding support for user in state
 			dispatch({ type: GET_USER, payload: user})
 		} catch (e) {
 			alert(e)

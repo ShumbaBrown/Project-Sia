@@ -42,7 +42,6 @@ class Home extends React.Component {
         <Text>{this.props.auth.uid}</Text>
         <Text>{this.props.user.id}</Text>
         <Text>{this.props.user.first_name}</Text>
-        <Text>{this.props.user.last_name}</Text>
 				<Button title='Logout' onPress={this.handleSignout} />
         <TouchableOpacity>
           <Notification></Notification>
