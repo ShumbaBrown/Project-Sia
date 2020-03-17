@@ -10,41 +10,35 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateEmail, updatePassword, login } from '../actions/auth'
+import { updateEmail, updatePassword, login } from '../actions/user'
 import Backend from '../Backend.js'
 import event from '../classes/event.js'
 import user from '../classes/user.js'
-import {
-  getUser
-} from '../actions/user'
 
-class Login extends React.Component {
+class Profile extends React.Component {
   state = {
     email: "",
     password: ""
   }
 
   handleLogin = () => {
-        this.props.login().then( () => {
-          this.props.getUser()
-        })
+        this.props.login()
         this.props.navigation.navigate('Home')
     }
-
 
   render() {
         return (
             <View style={styles.container}>
                 <TextInput
                     style={styles.inputBox}
-                    value={this.props.auth.email}
+                    value={this.props.user.email}
                     onChangeText={email => this.props.updateEmail(email)}
                     placeholder='Email'
                     autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.inputBox}
-                    value={this.props.auth.password}
+                    value={this.props.user.password}
                     onChangeText={password => this.props.updatePassword(password)}
                     placeholder='Password'
                     secureTextEntry={true}
@@ -99,12 +93,11 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ updateEmail, updatePassword, login, getUser}, dispatch)
+    return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
 }
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth,
         user: state.user
     }
 }
@@ -112,4 +105,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login)
+)(Profile)
