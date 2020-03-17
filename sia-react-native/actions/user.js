@@ -10,6 +10,7 @@ export const UPDATE_GENDER = 'UPDATE_GENDER'
 export const UPDATE_CLASSIFICATION = 'UPDATE_CLASSIFICATION'
 export const UPDATE_MAJOR = 'UPDATE_MAJOR'
 export const UPDATE_INTEREST_TAGS = 'UPDATE_INTEREST_TAGS'
+export const UPDATE_ACHIEVEMENTS = 'UPDATE_ACHIEVEMENTS'
 
 // actions
 export const updateFirstName = first_name => {
@@ -58,6 +59,13 @@ export const updateInterestTags = tags => {
 	return {
 		type: UPDATE_INTEREST_TAGS,
 		payload: tags
+	}
+}
+
+export const updateAchievements = achievements => {
+	return {
+		type: UPDATE_ACHIEVEMENTS,
+		payload: achievements
 	}
 }
 
