@@ -25,16 +25,11 @@ import {
 } from '../actions/user'
 
 class Signup extends React.Component {
-  state = {
-    name: "",
-    email: "",
-    password: ""
-  }
   handleSignUp = () => {
     this.props.signup().then( () => {
       this.props.getUser()
     })
-    this.props.navigation.navigate('Home')
+    this.props.navigation.navigate('Profile')
   }
 
   render() {

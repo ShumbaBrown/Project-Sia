@@ -10,46 +10,53 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateEmail, updatePassword, login } from '../actions/user'
+import { updateEmail, updatePassword, login, signup } from '../actions/user'
 import Backend from '../Backend.js'
 import event from '../classes/event.js'
 import user from '../classes/user.js'
+import {
+  getUser,
+  updateUser,
+  updateFirstName,
+  updateLastName,
+  updateAge,
+  updateGender,
+  updateClassification,
+  updateMajor,
+  updateInterestTags
+} from '../actions/user'
 
 class Profile extends React.Component {
-  state = {
-    email: "",
-    password: ""
-  }
 
-  handleLogin = () => {
-        this.props.login()
+  updateUser = () => {
+        // this.props.login()
+        this.props.updateUser(this.props.user)
         this.props.navigation.navigate('Home')
     }
 
   render() {
         return (
             <View style={styles.container}>
+                <Text>{this.props.user.id}</Text>
+                <Text>{this.props.user.first_name}</Text>
+                <Text>{this.props.user.last_name}</Text>
                 <TextInput
                     style={styles.inputBox}
-                    value={this.props.user.email}
-                    onChangeText={email => this.props.updateEmail(email)}
-                    placeholder='Email'
+                    value={this.props.user.first_name}
+                    onChangeText={first_name => this.props.updateFirstName(first_name)}
+                    placeholder='First Name'
                     autoCapitalize='none'
                 />
                 <TextInput
                     style={styles.inputBox}
-                    value={this.props.user.password}
-                    onChangeText={password => this.props.updatePassword(password)}
-                    placeholder='Password'
-                    secureTextEntry={true}
+                    value={this.props.user.last_name}
+                    onChangeText={last_name => this.props.updateLastName(last_name)}
+                    placeholder='Last Name'
+                    autoCapitalize='none'
                 />
-                <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-                    <Text style={styles.buttonText}>Login</Text>
+                <TouchableOpacity style={styles.button} onPress={this.updateUser}>
+                    <Text style={styles.buttonText}>Update</Text>
                 </TouchableOpacity>
-                <Button
-                    title="Don't have an account yet? Sign up"
-                    onPress={() => this.props.navigation.navigate('Signup')}
-                />
             </View>
         )
     }
@@ -93,13 +100,28 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ updateEmail, updatePassword, login }, dispatch)
+  return bindActionCreators({
+    updateEmail,
+    updatePassword,
+    signup,
+    getUser,
+    updateUser,
+    updateFirstName,
+    updateLastName,
+    updateEmail,
+    updateAge,
+    updateGender,
+    updateClassification,
+    updateMajor,
+    updateInterestTags
+  }, dispatch)
 }
 
 const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
+  return {
+      auth: state.auth,
+      user: state.user
+  }
 }
 
 export default connect(
