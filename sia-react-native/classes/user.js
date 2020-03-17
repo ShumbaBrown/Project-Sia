@@ -13,7 +13,10 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-    interest_tags = []) {
+    interest_tags = [],
+    statLibrary = new statisticList(),
+    achievements = []
+    ) {
     this.id = id;
 
     //Collects typical user information for display/UX purposes
