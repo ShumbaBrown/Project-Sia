@@ -250,7 +250,7 @@ describe("Event List modification tests",() => {
 
         expect(response.length).toEqual(2);
         expect(response[0]).toEqual(expected_response);
-        expect(response[1]).toEqual(false);
+        expect(response[1]).toEqual(true);
         expect(generated_event_list).toEqual(expected_event_list);
     });
 
