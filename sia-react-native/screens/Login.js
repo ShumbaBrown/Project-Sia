@@ -19,6 +19,9 @@ import user from '../classes/user.js'
 import {
   getUser
 } from '../actions/user'
+import {
+  getEvents
+} from '../actions/events'
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -27,16 +30,17 @@ const DismissKeyboard = ({ children }) => (
 );
 
 class Login extends React.Component {
-  state = {
-    email: "",
-    password: ""
+  constructor(props) {
+    super(props)
   }
-
+  componentDidMount() {
+    this.props.getEvents()
+  }
   handleLogin = () => {
         this.props.login().then( () => {
           this.props.getUser()
+          this.props.navigation.navigate('Home')
         })
-        this.props.navigation.navigate('Home')
     }
 
 
@@ -145,13 +149,14 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ updateEmail, updatePassword, login, getUser}, dispatch)
+    return bindActionCreators({ updateEmail, updatePassword, login, getUser, getEvents}, dispatch)
 }
 
 const mapStateToProps = state => {
     return {
         auth: state.auth,
-        user: state.user
+        user: state.user,
+        events: state.events
     }
 }
 

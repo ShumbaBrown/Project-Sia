@@ -28,8 +28,8 @@ class Signup extends React.Component {
   handleSignUp = () => {
     this.props.signup().then( () => {
       this.props.getUser()
+      this.props.navigation.navigate('Profile')
     })
-    this.props.navigation.navigate('Profile')
   }
 
   render() {

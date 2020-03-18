@@ -13,7 +13,7 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-    interest_tags = []],
+    interest_tags = [],
     statLibrary = new statisticList(),
     achievements = []
     ) {

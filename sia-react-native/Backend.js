@@ -55,9 +55,8 @@ class Backend extends React.Component {
         events.push(new event(doc.id, doc.data().name, doc.data().description,
           doc.data().location, doc.data().start_date_time, doc.data().end_date_time, []))
       });
-
-
     });
+    return events
     return new eventList(events);
   }
   // Usage

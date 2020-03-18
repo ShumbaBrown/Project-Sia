@@ -4,7 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Button
+  Button,
+  FlatList
 } from 'react-native'
 import {
   bindActionCreators
@@ -18,13 +19,23 @@ import user from '../classes/user.js'
 import {
   getUser
 } from '../actions/user'
+import {
+  getEvents
+} from '../actions/events'
+
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  componentDidMount() {
+    this.props.getEvents()
+  }
   handleSignout = () => {
-    // this.props.getUser()
     Firebase.auth().signOut()
     this.props.navigation.navigate('Login')
   }
+
   render() {
     return ( <View style={styles.container}>
 				<Text>Profile Screen</Text>
@@ -33,7 +44,12 @@ class Home extends React.Component {
         <Text>{this.props.user.id}</Text>
         <Text>{this.props.user.first_name}</Text>
 				<Button title='Logout' onPress={this.handleSignout} />
-			</View>
+        <FlatList
+          data={this.props.events}
+          renderItem={({item}) => <Text>{item.name}</Text>}
+        />
+        </View>
+
     )
   }
 }
@@ -49,14 +65,16 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    getUser
+    getUser,
+    getEvents
   }, dispatch)
 }
 
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    user: state.user
+    user: state.user,
+    events: state.events
   }
 }
 
