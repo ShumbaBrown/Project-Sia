@@ -250,7 +250,7 @@ describe("Event List modification tests",() => {
 
         expect(response.length).toEqual(2);
         expect(response[0]).toEqual(expected_response);
-        expect(response[1]).toEqual(false);
+        expect(response[1]).toEqual(true);
         expect(generated_event_list).toEqual(expected_event_list);
     });
 
@@ -301,10 +301,96 @@ describe("Event List modification tests",() => {
             ]
         };
 
+        //date-time excluded due to different generation states during
+        //test run times
+        let new_event = jasmine.objectContaining({
+            id: -1,
+            name: 'UNSET',
+            description: 'UNSET',
+            location: 'UNSET',
+            tags: []
+        })
+
         expect(response.length).toEqual(2);
-        expect(response[0]).toEqual(new event());
+        expect(response[0]).toEqual(new_event);
         expect(response[1]).toEqual(false);
         expect(generated_event_list).toEqual(expected_event_list);
     });
 });
 
+describe("Event List filtering tests",() => {
+    const event_a = new event(
+        123,
+        'Sample A',
+        'Sample desc A',
+        'Sample location A',
+        new Date('March 15, 2012 9:31:00'),
+        new Date('March 17, 2012 9:53:00'),
+        ['Freshman','Computer Science']
+        );
+    const event_b = new event(
+        456,
+        'Sample B',
+        'Sample desc B',
+        'Sample location B',
+        new Date('March 19, 2012 9:31:00'),
+        new Date('March 20, 2012 9:53:00'),
+        ['Senior','Mechanical Engineering','Sports']
+        );
+    const event_c = new event(
+        789,
+        'Sample C',
+        'Sample desc C',
+        'Sample location C',
+        new Date('March 10, 2012 9:31:00'),
+        new Date('March 11, 2012 9:53:00'),
+        ['Senior','Computer Science','Sports']
+        );
+    const event_d = new event(
+        183,
+        'Sample D',
+        'Sample desc D',
+        'Sample location D',
+        new Date('March 27, 2012 9:31:00'),
+        new Date('March 29, 2012 9:53:00'),
+        ['Sophomore','Computer Science']
+        );
+    const event_e = new event(
+        938,
+        'Sample E',
+        'Sample desc E',
+        'Sample location E',
+        new Date('March 22, 2012 9:31:00'),
+        new Date('March 30, 2012 9:53:00'),
+        ['Junior','Biology']
+        );
+
+    const generated_event_list = new eventList([event_a,event_b,event_c,event_d,event_e]);
+    
+    it("can successfully obtain a filtered list of events", () => {
+        const search_tags = ["Sports"];
+        
+        const expected_filtered_list = [event_b,event_c];
+        const generated_filtered_list = generated_event_list.filterEventListByTags(search_tags);
+        
+        expect(generated_filtered_list).toEqual(expected_filtered_list);
+    });
+
+    it("can successfully sort a list by number of overlaps", () => {
+        const search_tags = ["Senior","Computer Science","Sports"];
+        
+        const expected_filtered_list = [event_c,event_b,event_a,event_d];
+        const generated_filtered_list = generated_event_list.filterEventListByTags(search_tags);
+        
+        expect(generated_filtered_list).toEqual(expected_filtered_list);
+    });
+
+    it("returns an empty list of no events match the tags", () => {
+        const search_tags = ["Graduate","Arts"];
+        
+        const expected_filtered_list = [];
+        const generated_filtered_list = generated_event_list.filterEventListByTags(search_tags);
+        
+        expect(generated_filtered_list).toEqual(expected_filtered_list);
+    });
+});
