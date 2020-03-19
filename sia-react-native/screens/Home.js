@@ -4,7 +4,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Button
+  Button,
+  TouchableOpacity
 } from 'react-native'
 import {
   bindActionCreators
@@ -33,6 +34,9 @@ class Home extends React.Component {
         <Text>{this.props.user.id}</Text>
         <Text>{this.props.user.first_name}</Text>
 				<Button title='Logout' onPress={this.handleSignout} />
+        <TouchableOpacity>
+          <Notification></Notification>
+        </TouchableOpacity>
 			</View>
     )
   }
