@@ -12,7 +12,6 @@ class Notification extends React.Component{
         this.title = 'Notification Title'
         this.message = 'Notification Message'
         this.tags = []
-        // Notification Types 
         const types = {
             ACHIEVEMENT: 'Achievement',
             EVENT: 'Event',
@@ -35,7 +34,6 @@ class Notification extends React.Component{
                     <Text style={styles.TextStyles}>{this.message}</Text>
                 </View>
             }
-            <Button title='press' onPress={this.toggleDisplay}></Button>
             </View>
         )
     }
@@ -54,4 +52,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Notification
+export default Notification;
