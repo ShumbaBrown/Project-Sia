@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Image
 } from "react-native";
-import StarRating from 'react-native-star-rating'
+
 class Home2 extends Component {
     render() {
         return (
