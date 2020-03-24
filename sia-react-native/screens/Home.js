@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker,
 } from 'react-native'
 import {
   bindActionCreators
@@ -21,6 +22,14 @@ import {
 } from '../actions/user'
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       pickerSelect: "Default"
+    }
+  }
+  
   handleSignout = () => {
     // this.props.getUser()
     Firebase.auth().signOut()
@@ -37,6 +46,7 @@ class Home extends React.Component {
         <TouchableOpacity>
           <Notification></Notification>
         </TouchableOpacity>
+        
 			</View>
     )
   }

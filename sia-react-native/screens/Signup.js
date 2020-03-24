@@ -3,6 +3,7 @@ import {
   View,
   TextInput,
   StyleSheet,
+  Picker,
   TouchableOpacity,
   Text
 } from 'react-native'
@@ -29,29 +30,34 @@ class Signup extends React.Component {
     this.props.signup().then( () => {
       this.props.getUser()
     })
-    this.props.navigation.navigate('Profile')
+    this.props.navigation.navigate('Register')
   }
 
   render() {
-    return ( <View style={styles.container}>
+    return ( 
+    <View style={styles.container}>
+      <View>
 				<TextInput
 					style={styles.inputBox}
 					value={this.props.auth.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					autoCapitalize='none'
-				/>
+          />
+        </View>
+        <View style={styles.inputView}>
 				<TextInput
 					style={styles.inputBox}
 					value={this.props.auth.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					secureTextEntry={true}
-				/>
-				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-					<Text style={styles.buttonText}>Signup</Text>
+          />
+        </View>
+        <TouchableOpacity style={styles.buttonSignup} onPress={this.handleNextPage}>
+					<Text style={styles.buttonText}>Next</Text>
 				</TouchableOpacity>
-			</View>
+      </View>
     )
   }
 }
@@ -59,9 +65,22 @@ class Signup extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#003f5c',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  inputView: {
+    width: "85%",
+    backgroundColor: "#465881",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 20
+  },
+  inputText: {
+    height: 50,
+    color: "white"
   },
   inputBox: {
     width: '85%',
@@ -77,8 +96,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingVertical: 5,
     alignItems: 'center',
-    backgroundColor: '#FFA611',
-    borderColor: '#FFA611',
+    backgroundColor: '#F6820D',
+    borderColor: '#F6820D',
     borderWidth: 1,
     borderRadius: 5,
     width: 200
@@ -89,8 +108,16 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   buttonSignup: {
-    fontSize: 12
-  }
+    fontSize: 12,
+    width: "60%",
+    backgroundColor: "#fb5b5a",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    marginBottom: 10
+  },
 })
 
 const mapDispatchToProps = dispatch => {
