@@ -28,6 +28,11 @@ export default class Register extends React.Component {
         }
         
     }
+    addInterestTag(interest) {
+        this.setState(({ interest_tags }) => ({
+          interest_tags: new Set(interest_tags).add(interest)
+        }));
+      }
     updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
@@ -202,14 +207,17 @@ export default class Register extends React.Component {
                         <TextInput 
                         style={styles.interestInputText}
                         placeholder='Enter an Interest'
-                        multiline={true}>
+                        multiline={true}
+                        // TODO: make an interest tag value to send to below function
+                        >
                         </TextInput>
-                        <Image
+                        <TouchableOpacity onPress={(interest) => this.addInterestTag(interest)}>
+                            <Image
                         style={styles.plusImage}
-                        source={require('../assets/baseline_add_black_18dp.png')}/>
-                    </View>
-                    <View>
-                    
+                        source={require('../assets/baseline_add_black_18dp.png')}
+                        />
+                        </TouchableOpacity>
+                        
                     </View>
                     
                     {/*enter interests, save to list */}
@@ -259,14 +267,14 @@ const styles = StyleSheet.create({
     },
     inputText: {
         flex: 2,
-        height: 50,
+        height: 55,
         color: "white"
       },
     inputView: {
         width: "85%",
         backgroundColor: "#465881",
         borderRadius: 25,
-        height: 50,
+        height: 55,
         marginBottom: 20,
         justifyContent: "center",
         padding: 20
@@ -310,9 +318,9 @@ const styles = StyleSheet.create({
         padding: 20
       },
       interestInputText: {
-        flex: 1,
-        width: '80%',
-        marginRight: 230
+        flex: 8,
+        height: 25,
+        
       },
       plusImage: {
         flex: 1,
