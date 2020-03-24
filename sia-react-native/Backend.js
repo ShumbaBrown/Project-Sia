@@ -45,6 +45,26 @@ class Backend extends React.Component {
     });
   }
 
+  formatDate(dateString) {
+  const parsed = moment(new Date(dateString));
+
+  if (!parsed.isValid()) {
+    return dateString;
+  }
+
+  return parsed.format('D MMM YYYY');
+}
+
+formatDateTime(dateString) {
+  const parsed = moment(new Date(dateString));
+
+  if (!parsed.isValid()) {
+    return dateString;
+  }
+
+  return parsed.format('H:mm A on D MMM YYYY');
+}
+
   async getEvents() {
     const db = Firebase.firestore();
     let events = []
