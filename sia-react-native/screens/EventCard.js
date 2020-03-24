@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import event from '../classes/event.js'
-import { formatDate } from "./Backend";
+import { formatDate } from './Backend';
 
 
 export default function EventCard({ event }) {
