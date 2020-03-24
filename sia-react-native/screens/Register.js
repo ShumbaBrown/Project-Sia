@@ -28,6 +28,11 @@ export default class Register extends React.Component {
         }
         
     }
+    addInterestTag(interest) {
+        this.setState(({ interest_tags }) => ({
+          interest_tags: new Set(interest_tags).add(interest)
+        }));
+      }
     updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
