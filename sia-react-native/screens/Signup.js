@@ -26,7 +26,7 @@ import {
 } from '../actions/user'
 
 class Signup extends React.Component {
-  handleSignUp = () => {
+  handleNextPage = () => {
     this.props.signup().then( () => {
       this.props.getUser()
     })
@@ -36,7 +36,7 @@ class Signup extends React.Component {
   render() {
     return ( 
     <View style={styles.container}>
-      <View>
+      <View style={styles.inputView}>
 				<TextInput
 					style={styles.inputBox}
 					value={this.props.auth.email}
