@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  Text,
+  Text, 
+  Picker,
   Button
 } from 'react-native'
 import { connect } from 'react-redux'

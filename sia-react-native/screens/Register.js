@@ -14,7 +14,7 @@ export default class Register extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-             newUser: {
+             mockUser: {
                 id: "",
                 first_name: "",
                 last_name: "",
@@ -36,6 +36,13 @@ export default class Register extends React.Component {
     }
     setUser = () => {
         // Create new User object and set it to local object
+        newUser = new User()
+        newUser.setID(this.state.mockUser.id)
+        newUser.setFirstName(this.state.mockUser.first_name)
+        newUser.setLastName(this.state.mockUser.last_name)
+        newUser.setEmail(this.state.mockUser.email)
+        newUser.setGender(this.state.mockUser.gender)
+        
     }
     render() {
         var gender = [
@@ -66,10 +73,10 @@ export default class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(ID) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.newUser, {
+                                        updatedFormElement = this.updateObject(this.state.mockUser, {
                                         id: ID
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                                     secureTextEntry={true}
                                     
@@ -85,10 +92,10 @@ export default class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(text) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.newUser, {
+                                        updatedFormElement = this.updateObject(this.state.mockUser, {
                                         first_name: text
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}    
                         />
                     </View>
@@ -100,10 +107,10 @@ export default class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(text) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.newUser, {
+                                        updatedFormElement = this.updateObject(this.state.mockUser, {
                                         last_name: text
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                         />
                     </View>
@@ -116,9 +123,9 @@ export default class Register extends React.Component {
                                     onChangeText={(text) => {
                                         let updatedFormElement;
                                         updatedFormElement = this.updateObject(
-                                            this.state.newUser, {email: text}
+                                            this.state.mockUser, {email: text}
                                             )
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                         />
                     </View>
@@ -131,10 +138,10 @@ export default class Register extends React.Component {
                                     keyboardType='numeric'
                                     onChangeText={(number) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.newUser, {
+                                        updatedFormElement = this.updateObject(this.state.mockUser, {
                                         age: number
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                         />
                     </View>
@@ -149,10 +156,10 @@ export default class Register extends React.Component {
                         items={gender} 
                         onValueChange={(value) => {
                                     let updatedFormElement;
-                                    updatedFormElement = this.updateObject(this.state.newUser, {
+                                    updatedFormElement = this.updateObject(this.state.mockUser, {
                                     gender: value
                                 })
-                                    this.setState({ newUser: updatedFormElement })
+                                    this.setState({ mockUser: updatedFormElement })
                                     
                                 }}>
                         </RNPickerSelect>
@@ -167,11 +174,11 @@ export default class Register extends React.Component {
                         items={classification} 
                         onValueChange={(value) => {
                             let updatedFormElement;
-                            updatedFormElement = this.updateObject(this.state.newUser, {
+                            updatedFormElement = this.updateObject(this.state.mockUser, {
                             classification: value
                         })
-                            this.setState({ newUser: updatedFormElement })
-                            console.log(this.state.newUser.classification)
+                            this.setState({ mockUser: updatedFormElement })
+                            console.log(this.state.mockUser.classification)
                         }}>
                         </RNPickerSelect>
                     </View>
@@ -184,17 +191,18 @@ export default class Register extends React.Component {
                                     onChangeText={(number) => {
                                         let updatedFormElement;
                                         updatedFormElement = 
-                                        this.updateObject(this.state.newUser, {
+                                        this.updateObject(this.state.mockUser, {
                                         age: number
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                         />
                     </View>
                     <View style={styles.interestInputView}>
                         <TextInput 
                         style={styles.interestInputText}
-                        placeholder='Enter an Interest'>
+                        placeholder='Enter an Interest'
+                        multiline={true}>
                         </TextInput>
                         <Image
                         style={styles.plusImage}

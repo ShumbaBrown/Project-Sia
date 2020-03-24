@@ -4,6 +4,7 @@ import Login from '../screens/Login.js'
 import Signup from '../screens/Signup.js'
 import Home from '../screens/Home.js'
 import Profile from '../screens/Profile.js'
+import Register from '../screens/Register.js'
 
 const SwitchNavigator = createSwitchNavigator(
     {
@@ -19,6 +20,9 @@ const SwitchNavigator = createSwitchNavigator(
         Profile: {
             screen: Profile
         },
+        Register: {
+            screen: Register
+        }
     },
     {
         initialRouteName: 'Login'
