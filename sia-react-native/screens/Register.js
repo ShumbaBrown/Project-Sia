@@ -14,7 +14,7 @@ export default class Register extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-             newUser: {
+             mockUser: {
                 id: "",
                 first_name: "",
                 last_name: "",
@@ -36,6 +36,13 @@ export default class Register extends React.Component {
     }
     setUser = () => {
         // Create new User object and set it to local object
+        newUser = new User()
+        newUser.setID(this.state.mockUser.id)
+        newUser.setFirstName(this.state.mockUser.first_name)
+        newUser.setLastName(this.state.mockUser.last_name)
+        newUser.setEmail(this.state.mockUser.email)
+        newUser.setGender(this.state.mockUser.gender)
+        
     }
     render() {
         var gender = [
@@ -66,10 +73,10 @@ export default class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(ID) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.newUser, {
+                                        updatedFormElement = this.updateObject(this.state.mockUser, {
                                         id: ID
                                     })
-                                        this.setState({ newUser: updatedFormElement })
+                                        this.setState({ mockUser: updatedFormElement })
                                     }}
                                     secureTextEntry={true}
                                     

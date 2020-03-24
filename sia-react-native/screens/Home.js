@@ -46,6 +46,7 @@ class Home extends React.Component {
         <TouchableOpacity>
           <Notification></Notification>
         </TouchableOpacity>
+        
 			</View>
     )
   }
