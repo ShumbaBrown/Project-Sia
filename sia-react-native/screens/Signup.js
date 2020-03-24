@@ -19,31 +19,31 @@ import {
   updateEmail,
   updatePassword,
   signup
+} from '../actions/auth'
+import {
+  getUser
 } from '../actions/user'
 
 class Signup extends React.Component {
-  state = {
-    name: "",
-    email: "",
-    password: ""
-  }
   handleSignUp = () => {
-    this.props.signup()
-    this.props.navigation.navigate('Home')
+    this.props.signup().then( () => {
+      this.props.getUser()
+    })
+    this.props.navigation.navigate('Profile')
   }
 
   render() {
     return ( <View style={styles.container}>
 				<TextInput
 					style={styles.inputBox}
-					value={this.props.user.email}
+					value={this.props.auth.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					autoCapitalize='none'
 				/>
 				<TextInput
 					style={styles.inputBox}
-					value={this.props.user.password}
+					value={this.props.auth.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					secureTextEntry={true}
@@ -97,12 +97,14 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     updateEmail,
     updatePassword,
-    signup
+    signup,
+    getUser
   }, dispatch)
 }
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     user: state.user
   }
 }
