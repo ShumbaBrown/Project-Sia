@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, TextInput, StyleSheet } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { formatDateTime } from "./Backend";
+import { formatDateTime, addEvent } from "./Backend";
 
 
 
