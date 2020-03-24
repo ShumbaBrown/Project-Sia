@@ -2,6 +2,7 @@ import React from 'react';
 import Firebase from './Firebase'
 import event from './classes/event.js'
 import user from './classes/user.js'
+import moment from 'moment';
 
 class Backend extends React.Component {
   constructor() {
