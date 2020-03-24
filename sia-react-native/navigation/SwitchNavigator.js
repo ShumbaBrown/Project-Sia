@@ -3,6 +3,8 @@ import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 import Login from '../screens/Login.js'
 import Signup from '../screens/Signup.js'
 import Home from '../screens/Home.js'
+import EventForm from '../screens/EventForm.js'
+import EventListFront from '../screens/EventListFront.js'
 
 const SwitchNavigator = createSwitchNavigator(
     {
@@ -14,6 +16,12 @@ const SwitchNavigator = createSwitchNavigator(
         },
         Home: {
             screen: Home
+        },
+        list: {
+            screen: EventListFront
+        },
+        form: {
+            screen: EventForm
         },
     },
     {
