@@ -1,91 +1,49 @@
 import React, { Component } from 'react'
-import {Image, View, TextInput, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList} from 'react-native'
+import {Image, View,TextInput, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import User from '../classes/user'
-import PickerSelect from 'react-native-picker-select' 
-import {
-    updateEmail,
-    updatePassword,
-    signup
-  } from '../actions/auth'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {
-    getUser,
-    updateUser,
-    updateFirstName,
-    updateLastName,
-    updateAge,
-    updateGender,
-    updateClassification,
-    updateMajor,
-    updateInterestTags
-  } from '../actions/user'
+import RNPickerSelect from 'react-native-picker-select' 
 
-export class Register extends React.Component {
 
-    // TODO: Add dynamic list for interest tags
-    // find a way to map each element to a html tag
-    // create new element when 'plus' button is triggered
-    // delete element when item in interest list is triggered
+export default class Register extends React.Component {
+
+    // TODO: initialize User object
+    // 1. import user class - DONE
+    // 2. assign members of class to fields below
+    // 3. save them to one(1) object when 'Finish' is pressed
+    // 4. Fix inputs for for the user
     constructor(props) {
         super(props)
-        
         this.state = {
-            mockInterest: '',
-            interest: [],
-            testUser : new User()
+             newUser: {
+                id: "",
+                first_name: "",
+                last_name: "",
+                email: "",
+                age: 0,
+                gender: "None",
+                classification: "",
+                major: "",
+                interest_tags: new Set()
+            },
         }
         
     }
-    
-    setUser =() => {
-        
-
-        this.props.signup().then( () => {
-            this.props.getUser()
-          })
-    }
-    backPage = () => {
-
-        this.props.navigation.navigate('Signup')
-
-      }
-    handleNextPage = () => {
-        // Navigates to Profile page
-        this.props.navigation.navigate('Profile')
-      }
-
     updateObject = (oldObject, updatedProperties) => {
-        // used to update user attributes
         return {
             ...oldObject,
             ...updatedProperties
         }
     }
-    handleClick = () => {
-        // adds items to interest tag list
-        this.setState(prevState => ({
-            testUser: {
-              ...prevState.testUser,
-              interest_tags: [
-                  this.state.mockInterest,
-                  ...prevState.testUser.interest_tags]
-            },
-          }));
+    setUser = () => {
+        // Create new User object and set it to local object
     }
     render() {
-        /* use for the list of interest tags */
-        const books = [
-        { label: 'book1', value: 'book1' },
-        { text: 'create an app', key: '2' },
-        { text: 'play on the switch', key: '3' }
-      ]
         var gender = [
             {label: 'Female', value: "female"},
-            {label: 'Male', value: 'male' },
-            {label: 'Non-binary', value: 'non-binary'},
-            {label: 'Gender Non-conforming', value: 'gender non-conforming'},
-            {label: 'Not listed', value: 'not listed'}
+            {label: 'Male', value: "male" },
+            {label: 'Non-binary', value: "non-binary"},
+            {label: 'Gender Non-conforming', value: "gender non-conforming"},
+            {label: 'Not listed', value: "Not listed"}
           ]
         var classification = [
             {label: 'Freshman/First Year', value: 'freshman'},
@@ -94,9 +52,6 @@ export class Register extends React.Component {
             {label: 'Senior/Fourth Year', value: 'senior'}
         ]
         
-        
-            
-        
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -104,7 +59,6 @@ export class Register extends React.Component {
                         <Text style={styles.titleText}>Enter your information below:</Text>
                         </View>
                         <View style={styles.inputView}>
-                            {/* ID Input */}
                         <TextInput
                                     style={styles.inputText}
                                     placeholder='ID Number'
@@ -112,11 +66,10 @@ export class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(ID) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.testUser, {
+                                        updatedFormElement = this.updateObject(this.state.newUser, {
                                         id: ID
                                     })
-                                        this.setState({ testUser: updatedFormElement })
-                                        this.prop
+                                        this.setState({ newUser: updatedFormElement })
                                     }}
                                     secureTextEntry={true}
                                     
@@ -124,7 +77,6 @@ export class Register extends React.Component {
                         
                     </View>
                     <View style={styles.inputView}>
-                                    {/* Name Inputs */}
                         <TextInput
                                     style={styles.inputText}
                                     placeholder='First Name'
@@ -367,13 +319,16 @@ const styles = StyleSheet.create({
         marginRight: 20,
         color: 'white'
       },
+      pickerSelect: {
+            height: 10
+      },
       interestInputView: {
         flexDirection: 'row',
         alignItems: 'center',
         width: "85%",
         backgroundColor: "#465881",
         borderRadius: 25,
-        height: 60,
+        height: 50,
         marginBottom: 20,
         justifyContent: "center",
         padding: 20
