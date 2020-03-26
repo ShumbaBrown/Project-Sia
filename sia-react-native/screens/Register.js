@@ -8,23 +8,13 @@ export default class Register extends React.Component {
 
     // TODO: initialize User object
     // 1. import user class - DONE
-    // 2. assign members of class to fields below
+    // 2. assign members of class to fields below - DONE
     // 3. save them to one(1) object when 'Finish' is pressed
     // 4. Fix inputs for for the user
     constructor(props) {
         super(props)
         this.state = {
-             mockUser: {
-                id: "",
-                first_name: "",
-                last_name: "",
-                email: "",
-                age: 0,
-                gender: "None",
-                classification: "",
-                major: "",
-                interest_tags: new Set()
-            },
+            testUser : new User()
         }
         
     }
@@ -33,21 +23,14 @@ export default class Register extends React.Component {
           interest_tags: new Set(interest_tags).add(interest)
         }));
       }
+    updateObjectHelper = () => {
+
+    }
     updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
             ...updatedProperties
         }
-    }
-    setUser = () => {
-        // Create new User object and set it to local object
-        newUser = new User()
-        newUser.setID(this.state.mockUser.id)
-        newUser.setFirstName(this.state.mockUser.first_name)
-        newUser.setLastName(this.state.mockUser.last_name)
-        newUser.setEmail(this.state.mockUser.email)
-        newUser.setGender(this.state.mockUser.gender)
-        
     }
     render() {
         var gender = [
@@ -71,6 +54,7 @@ export default class Register extends React.Component {
                         <Text style={styles.titleText}>Enter your information below:</Text>
                         </View>
                         <View style={styles.inputView}>
+                            {/* ID Input */}
                         <TextInput
                                     style={styles.inputText}
                                     placeholder='ID Number'
@@ -78,10 +62,11 @@ export default class Register extends React.Component {
                                     autoCapitalize='none'
                                     onChangeText={(ID) => {
                                         let updatedFormElement;
-                                        updatedFormElement = this.updateObject(this.state.mockUser, {
+                                        updatedFormElement = this.updateObject(this.state.testUser, {
                                         id: ID
                                     })
-                                        this.setState({ mockUser: updatedFormElement })
+                                        this.setState({ testUser: updatedFormElement })
+                                        console.log(this.state.testUser.id)
                                     }}
                                     secureTextEntry={true}
                                     
