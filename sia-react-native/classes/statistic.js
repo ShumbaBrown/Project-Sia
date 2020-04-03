@@ -3,12 +3,6 @@ a user's action.
 Eg. Number of events created
 */
 
-const statistic_types = {
-    BOOLEAN: 0,
-    QUANTITY: 1,
-    ARR: 2
-}
-
 class statistic {
     constructor(
         id = -1,
