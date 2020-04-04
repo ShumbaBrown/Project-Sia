@@ -22,22 +22,33 @@ describe("Achievement initialization tests",() => {
             'Sample',
             'Sample desc',
             [
-                {
-                    id: 256,
-                    name: "Sample Stat A",
-                    description: "Given Description A",
-                    isBoolean: false,
-                    flag: false,
-                    quantity: 3
-                },
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    256,
+                    "Sample Stat A",
+                    "Given Description A",
+                    1,
+                    false,
+                    3,
+                    []
+                ),
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    [],
+                ),
+                new statistic(
+                    777,
+                    "Sample Stat C",
+                    "Given Description C",
+                    2,
+                    false,
+                    0,
+                    [1,2,3],
+                )
             ]
         );
     
@@ -46,22 +57,33 @@ describe("Achievement initialization tests",() => {
             name: 'Sample',
             description: 'Sample desc',
             state_requirements: [
-                {
-                    id: 256,
-                    name: "Sample Stat A",
-                    description: "Given Description A",
-                    isBoolean: false,
-                    flag: false,
-                    quantity: 3
-                },
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    256,
+                    "Sample Stat A",
+                    "Given Description A",
+                    1,
+                    false,
+                    3,
+                    []
+                ),
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    []
+                ),
+                new statistic(
+                    777,
+                    "Sample Stat C",
+                    "Given Description C",
+                    2,
+                    false,
+                    0,
+                    [1,2,3]
+                )
             ]
         };
     
@@ -72,38 +94,51 @@ describe("Achievement initialization tests",() => {
 describe("Achievement verification tests", () => {
     const sample_user_state = new statisticList(
         [
-            {
-                id: 1,
-                name: "Events Created",
-                description: "Tracks user made events",
-                isBoolean: false,
-                flag: false,
-                quantity: 5
-            },
-            {
-                id: 2,
-                name: "Backup Email Set",
-                description: "Tracks if user has a backup email",
-                isBoolean: true,
-                flag: true,
-                quantity: 0
-            },
-            {
-                id: 3,
-                name: "Major Set",
-                description: "Tracks if user has set a major",
-                isBoolean: true,
-                flag: false,
-                quantity: 0
-            },
-            {
-                id: 4,
-                name: "Clicks Made",
-                description: "Tracks Number of clicks in the app",
-                isBoolean: false,
-                flag: false,
-                quantity: 17
-            }
+            new statistic(
+                1,
+                "Events Created",
+                "Tracks user made events",
+                1,
+                false,
+                5,
+                []
+            ),
+            new statistic(
+                2,
+                "Backup Email Set",
+                "Tracks if user has a backup email",
+                0,
+                true,
+                0,
+                []
+            ),
+            new statistic(
+                3,
+                "Major Set",
+                "Tracks if user has set a major",
+                0,
+                false,
+                0,
+                []
+            ),
+            new statistic(
+                4,
+                "Clicks Made",
+                "Tracks number of clicks in the app",
+                1,
+                false,
+                17,
+                []
+            ),
+            new statistic(
+                5,
+                "Events Attended",
+                "Tracks which events the user attended",
+                1,
+                false,
+                0,
+                [1,3,5,7]
+            )
         ]
     )
 
@@ -119,9 +154,10 @@ describe("Achievement verification tests", () => {
                         1,
                         "Events Created",
                         "Tracks user made events",
+                        1,
                         false,
-                        false,
-                        5
+                        5,
+                        []
                     )
             ])
         );
@@ -139,9 +175,10 @@ describe("Achievement verification tests", () => {
                         1,
                         "Events Created",
                         "Tracks user made events",
+                        1,
                         false,
-                        false,
-                        7
+                        7,
+                        []
                     )
             ])
         );
@@ -160,12 +197,15 @@ describe("Achievement verification tests", () => {
                         2,
                         "Backup Email Set",
                         "Tracks if user has a backup email",
+                        0,
                         true,
-                        true,
-                        0
+                        0,
+                        []
                     )
             ])
         );
+
+        expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(true);
     });
         
     it("Identifies if a boolean state fails", () => {
@@ -179,16 +219,61 @@ describe("Achievement verification tests", () => {
                         2,
                         "Backup Email Set",
                         "Tracks if user has a backup email",
-                        true,
+                        0,
                         false,
-                        0
+                        0,
+                        []
                     )
             ])
         );
         expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(false);
     });
     
-    it("Passed when all states are matched", () => {
+    it("Identifies if a array type stat passes", () => {
+        const sample_achievement = new achievement(
+            71,
+            "Keynote Keeper",
+            "Awarded for attending all keynote events.",
+            new statisticList(
+                [
+                    new statistic(
+                        5,
+                        "Events Attended",
+                        "Tracks which events the user attended",
+                        2,
+                        false,
+                        0,
+                        [1,3,5]
+                    )
+            ])
+        );
+
+        expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(true);
+    });
+        
+    it("Identifies if a array type stat mismatches", () => {
+        const sample_achievement = new achievement(
+            72,
+            "Ceremony Caller",
+            "Awarded for attending all school ceremonies.",
+            new statisticList(
+                [
+                    new statistic(
+                        5,
+                        "Events Attended",
+                        "Tracks which events the user attended",
+                        2,
+                        false,
+                        0,
+                        [1,3,4,9]
+                    )
+            ])
+        );
+        expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(false);
+    });
+    
+    
+    it("Passes when all states are matched", () => {
         const sample_achievement = new achievement(
             71,
             "Logged and Loaded",
@@ -199,27 +284,38 @@ describe("Achievement verification tests", () => {
                         2,
                         "Backup Email Set",
                         "Tracks if user has a backup email",
+                        0,
                         true,
-                        true,
-                        0
+                        0,
+                        []
                     ),
                     new statistic(
                         3,
                         "Major Set",
                         "Tracks if user has set a major",
-                        true,
+                        0,
                         false,
-                        0
+                        0,
+                        []
                     ),
-                    {
-                        id: 4,
-                        name: "Clicks Made",
-                        description: "Tracks Number of clicks in the app",
-                        isBoolean: false,
-                        flag: false,
-                        quantity: 3
-                    }
-
+                    new statistic(
+                        4,
+                        "Clicks Made",
+                        "Tracks number of clicks in the app",
+                        1,
+                        false,
+                        3,
+                        []
+                    ),
+                    new statistic(
+                        5,
+                        "Events Attended",
+                        "Tracks which events the user attended",
+                        2,
+                        false,
+                        0,
+                        [1,3,5]
+                    ),
             ])
         );
         expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(true);
@@ -236,26 +332,38 @@ describe("Achievement verification tests", () => {
                         2,
                         "Backup Email Set",
                         "Tracks if user has a backup email",
+                        0,
                         true,
-                        true,
-                        0
+                        0,
+                        []
                     ),
                     new statistic(
                         3,
                         "Major Set",
                         "Tracks if user has set a major",
+                        0,
                         true,
-                        true,
-                        0
+                        0,
+                        []
                     ),
-                    {
-                        id: 4,
-                        name: "Clicks Made",
-                        description: "Tracks Number of clicks in the app",
-                        isBoolean: false,
-                        flag: false,
-                        quantity: 0
-                    }
+                    new statistic(
+                        4,
+                        "Clicks Made",
+                        "Tracks number of clicks in the app",
+                        1,
+                        false,
+                        999,
+                        []
+                    ),
+                    new statistic(
+                        5,
+                        "Events Attended",
+                        "Tracks which events the user attended",
+                        2,
+                        false,
+                        0,
+                        [1,2,3]
+                    ),
             ])
         );
         expect(sample_achievement.areRequirementsMet(sample_user_state)).toEqual(false);
