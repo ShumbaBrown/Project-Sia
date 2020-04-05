@@ -58,10 +58,9 @@ class Backend extends React.Component {
 
 
     });
-    // console.log(new eventList(events))
     return new eventList(events);
   }
-  // Usage 
+  // Usage
   // import Backend from '../Backend.js'
   // backend = new Backend;
   // backend.getEvents().then((value) => console.log(value));
@@ -78,12 +77,15 @@ class Backend extends React.Component {
         classification: user.classification,
         major: user.major,
         interest_tags: user.interest_tags,
+        statLibrary: user.statLibrary,
+        achievements: user.achievements
       }
     },
     fromFirestore: function(snapshot, options) {
       const data = snapshot.data(options);
       return new user(data.id, data.first_name, data.last_name, data.email,
-        data.age, data.gender, data.classification, data.major, data.interest_tags)
+        data.age, data.gender, data.classification, data.major, data.interest_tags,
+        data.statLibrary, data.achievements)
     }
   }
 
@@ -97,15 +99,15 @@ class Backend extends React.Component {
   }
 
   async getCurrentUser() {
-    let user = Firebase.auth().currentUser;
+    let currentUser = Firebase.auth().currentUser;
     const db = Firebase.firestore();
-    await db.collection("users").doc(user.uid)
+    return await db.collection("users").doc(currentUser.uid)
       .get()
       .then(function(doc) {
         if (doc.exists) {
-          console.log(doc.data())
-          return new user(doc.data().id, doc.data().first_name, doc.data().last_name, doc.data().email_address,
-            doc.data().age, doc.data().gender, doc.data().classification, doc.data().major, doc.data().interest_tags)
+          return new user(doc.data().uid, doc.data().first_name, doc.data().last_name, doc.data().email_address,
+            doc.data().age, doc.data().gender, doc.data().classification, doc.data().major, doc.data().interest_tags,
+            doc.data().statLibrary, doc.data().achievements)
         } else {
           console.log("No such document!");
         }
@@ -123,6 +125,8 @@ class Backend extends React.Component {
       classification: user.classification,
       major: user.major,
       interest_tags: user.interest_tags,
+      statLibrary: user.statLibrary,
+      achievements: user.achievements
     }
   }
 
