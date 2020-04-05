@@ -6,6 +6,18 @@ import achievement from '../../../sia-react-native/classes/achievement';
 describe("User initialization tests",() => {
     it("declares a default object successfully", () => {
         const generated_user = new user();
+
+        let default_parameters = new statisticList([
+            new statistic(
+                1,
+                "Events Attended",
+                "IDs of all attended events.",
+                2,
+                false,
+                0,
+                []
+              )]
+        );
     
         const expected_user = {
             id: -1,
@@ -17,7 +29,7 @@ describe("User initialization tests",() => {
             classification:"UNSET",
             major:"UNSET",
             interest_tags: new Set(),
-            statLibrary: new statisticList(),
+            statLibrary: default_parameters,
             achievements: []
         };
 
