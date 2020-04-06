@@ -38,16 +38,16 @@ class Signup extends React.Component {
     <View style={styles.container}>
       <View style={styles.inputView}>
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inputText}
 					value={this.props.auth.email}
 					onChangeText={email => this.props.updateEmail(email)}
-					placeholder='Email'
+					placeholder='Email or username'
 					autoCapitalize='none'
           />
         </View>
         <View style={styles.inputView}>
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inputText}
 					value={this.props.auth.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: "white"
+    
   },
   inputBox: {
     width: '85%',

@@ -2,9 +2,26 @@ import React, { Component } from 'react'
 import {Image, View,TextInput, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import User from '../classes/user'
 import RNPickerSelect from 'react-native-picker-select' 
-
-
-export default class Register extends React.Component {
+import {
+    updateEmail,
+    updatePassword,
+    signup
+  } from '../actions/auth'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {
+    getUser,
+    updateUser,
+    updateFirstName,
+    updateLastName,
+    updateAge,
+    updateGender,
+    updateClassification,
+    updateMajor,
+    updateInterestTags
+  } from '../actions/user'
+  
+export class Register extends React.Component {
 
     // TODO: initialize User object
     // 1. import user class - DONE
@@ -13,24 +30,28 @@ export default class Register extends React.Component {
     // 4. Fix inputs for for the user
     constructor(props) {
         super(props)
+        
         this.state = {
+            mockInterest: '',
+            interest: [],
             testUser : new User()
         }
         
-    }
-    addInterestTag(interest) {
-        this.setState(({ interest_tags }) => ({
-          interest_tags: new Set(interest_tags).add(interest)
-        }));
-      }
-    updateObjectHelper = () => {
-
     }
     updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
             ...updatedProperties
         }
+    }
+    handleClick = () => {
+        
+        this.setState(prevState => ({
+            testUser: {
+              ...prevState.testUser,
+              interest_tags: [this.state.mockInterest, ...prevState.testUser.interest_tags]
+            },
+          }));
     }
     render() {
         var gender = [
@@ -108,9 +129,10 @@ export default class Register extends React.Component {
                         {/* Email Input */}
                         <TextInput
                                     style={styles.inputText}
-                                    placeholder='Email'
+                                    placeholder={this.props.auth.email}
                                     placeholderTextColor='#34415e'
                                     autoCapitalize='none'
+                                
                                     onChangeText={(text) => {
                                         let updatedFormElement;
                                         updatedFormElement = this.updateObject(
@@ -197,24 +219,27 @@ export default class Register extends React.Component {
                         <TextInput 
                         style={styles.interestInputText}
                         placeholder='Enter an Interest'
-                        multiline={true}
-                        // TODO: make an interest tag value to send to below function
+                        onChangeText={(item) => {this.setState({
+                            mockInterest: item
+                            })
+                        }
+                        
+                    }
                         >
                         </TextInput>
-                        <TouchableOpacity onPress={(interest) => this.addInterestTag(interest)}>
+                        <TouchableOpacity 
+                        style={styles.plusImageContainer} 
+                        onPress={this.addItem, this.handleClick}>
                             <Image
-                        style={styles.plusImage}
-                        source={require('../assets/baseline_add_black_18dp.png')}
-                        />
+                            style={styles.plusImage}
+                            source={require('../assets/baseline_add_black_18dp.png')}
+                            />
                         </TouchableOpacity>
-                        
                     </View>
                     
-                    {/*enter interests, save to list */}
                     <TouchableOpacity style={styles.buttonSignup} onPress={this.handleSignUp, this.setUser}>
                         <TextInput 
-                        style={styles.buttonText}
-                        >Finish</TextInput>
+                        style={styles.buttonText}>Finish</TextInput>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -308,15 +333,46 @@ const styles = StyleSheet.create({
         padding: 20
       },
       interestInputText: {
-        flex: 8,
+        flex: 11,
         height: 25,
         
       },
       plusImage: {
-        flex: 1,
         height: 20,
         width: 10,
-        resizeMode: 'contain'
+        
+      },
+      plusImageContainer: {
+          flex: 1,
+          width:10,
+          resizeMode: 'contain'
       }
 })
 
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+      updateEmail,
+      updatePassword,
+      signup,
+      getUser,
+      updateUser,
+      updateFirstName,
+      updateLastName,
+      updateEmail,
+      updateAge,
+      updateGender,
+      updateClassification,
+      updateMajor,
+      updateInterestTags
+    }, dispatch)
+  }
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+        user: state.user
+    }
+  }
+  export default connect(
+      mapStateToProps,
+      mapDispatchToProps
+  )(Register)
