@@ -2,9 +2,26 @@ import React, { Component } from 'react'
 import {Image, View,TextInput, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import User from '../classes/user'
 import RNPickerSelect from 'react-native-picker-select' 
-
-
-export default class Register extends React.Component {
+import {
+    updateEmail,
+    updatePassword,
+    signup
+  } from '../actions/auth'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {
+    getUser,
+    updateUser,
+    updateFirstName,
+    updateLastName,
+    updateAge,
+    updateGender,
+    updateClassification,
+    updateMajor,
+    updateInterestTags
+  } from '../actions/user'
+  
+export class Register extends React.Component {
 
     // TODO: initialize User object
     // 1. import user class - DONE
@@ -13,24 +30,28 @@ export default class Register extends React.Component {
     // 4. Fix inputs for for the user
     constructor(props) {
         super(props)
+        
         this.state = {
+            mockInterest: '',
+            interest: [],
             testUser : new User()
         }
         
-    }
-    addInterestTag(interest) {
-        this.setState(({ interest_tags }) => ({
-          interest_tags: new Set(interest_tags).add(interest)
-        }));
-      }
-    updateObjectHelper = () => {
-
     }
     updateObject = (oldObject, updatedProperties) => {
         return {
             ...oldObject,
             ...updatedProperties
         }
+    }
+    handleClick = () => {
+        
+        this.setState(prevState => ({
+            testUser: {
+              ...prevState.testUser,
+              interest_tags: [this.state.mockInterest, ...prevState.testUser.interest_tags]
+            },
+          }));
     }
     render() {
         var gender = [
@@ -106,8 +127,21 @@ export default class Register extends React.Component {
                         />
                     </View>
                     <View style={styles.inputView}>
-                        {/* Previous Email Input */}
-                        <Text style={styles.inputText}>{this.props.auth.email}</Text>
+                        {/* Email Input */}
+                        <TextInput
+                                    style={styles.inputText}
+                                    placeholder={this.props.auth.email}
+                                    placeholderTextColor='#34415e'
+                                    autoCapitalize='none'
+                                
+                                    onChangeText={(text) => {
+                                        let updatedFormElement;
+                                        updatedFormElement = this.updateObject(
+                                            this.state.testUser, {email: text}
+                                            )
+                                        this.setState({ testUser: updatedFormElement })
+                                    }}
+                        />
                     </View>
                     <View style={styles.inputView}>
                         {/* Age Input */}
@@ -194,9 +228,9 @@ export default class Register extends React.Component {
                             mockInterest: item
                             })
                         }
-                        /*Need an interest tag function 
-                        to store interests to db */
-                    }>
+                        
+                    }
+                        >
                         </TextInput>
                         <TouchableOpacity 
                         style={styles.plusImageContainer} 
@@ -332,8 +366,8 @@ const styles = StyleSheet.create({
       },
       interestInputText: {
         flex: 11,
-        height: 60,
-        color: 'white'
+        height: 25,
+        
       },
       plusImage: {
         height: 20,

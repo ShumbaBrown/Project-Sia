@@ -52,7 +52,7 @@ class Login extends React.Component {
             <View style={styles.inputView} >
                 <TextInput
                     style={styles.inputBox}
-                    value={this.props.auth.email}
+                    defaultValue={this.props.auth.email}
                     onChangeText={email => this.props.updateEmail(email)}
                     placeholder='Email'
                     placeholderTextColor="#003f5c"

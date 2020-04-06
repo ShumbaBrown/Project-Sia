@@ -57,7 +57,6 @@ class Signup extends React.Component {
         <View style={styles.inputView}>
 				<TextInput
 					style={styles.inputText}
-					style={styles.inputBox}
 					value={this.props.auth.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
