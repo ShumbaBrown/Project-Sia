@@ -14,7 +14,7 @@ class user {
     gender = "UNSET",
     classification = "UNSET",
     major = "UNSET",
-    interest_tags = new Set(),
+    interest_tags = [],
     statLibrary = this._generateDefaultStatistics(),
     achievements = []
     ) {
@@ -43,15 +43,19 @@ class user {
   }
 
   addInterestTag(new_interest_tag) {
-    (this.interest_tags).add(new_interest_tag);
+    (this.interest_tags).push(new_interest_tag);
     return;
   }
 
   deleteInterestTag(requested_interest_tag) {
-    if (this.interest_tags.has(requested_interest_tag)) {
-      (this.interest_tags).delete(requested_interest_tag);
+    for(let tag_cycler = 0; tag_cycler < this.interest_tags.length; tag_cycler++) {
+      if(this.interest_tags[tag_cycler] == requested_interest_tag) {
+        this.interest_tags.splice(tag_cycler,1);
+        return 0;
+      }
     }
-    return;
+
+    return 1;
   }
 
   getInterestTags() {
