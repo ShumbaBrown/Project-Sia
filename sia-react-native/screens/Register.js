@@ -20,14 +20,15 @@ import {
     updateMajor,
     updateInterestTags
   } from '../actions/user'
-  
+
 export class Register extends React.Component {
 
     // TODO: initialize User object
     // 1. import user class - DONE
     // 2. assign members of class to fields below - DONE
-    // 3. save them to one(1) object when 'Finish' is pressed
-    // 4. Fix inputs for for the user
+    // 3. save them to one(1) object when 'Finish' is pressed 
+    // - a. use actions to store each attribute yo(bitch how tho?)
+    // 4. Fix inputs for for the user - DONE
     constructor(props) {
         super(props)
         
@@ -38,18 +39,38 @@ export class Register extends React.Component {
         }
         
     }
+    setUser =() => {
+        
+
+        this.props.signup().then( () => {
+            this.props.getUser()
+          })
+    }
+    backPage = () => {
+
+        this.props.navigation.navigate('Signup')
+
+      }
+    handleNextPage = () => {
+        // Navigates to Profile page
+        this.props.navigation.navigate('Profile')
+      }
+
     updateObject = (oldObject, updatedProperties) => {
+        // used to update user attributes
         return {
             ...oldObject,
             ...updatedProperties
         }
     }
     handleClick = () => {
-        
+        // adds items to interest tag list
         this.setState(prevState => ({
             testUser: {
               ...prevState.testUser,
-              interest_tags: [this.state.mockInterest, ...prevState.testUser.interest_tags]
+              interest_tags: [
+                  this.state.mockInterest,
+                  ...prevState.testUser.interest_tags]
             },
           }));
     }
@@ -87,7 +108,7 @@ export class Register extends React.Component {
                                         id: ID
                                     })
                                         this.setState({ testUser: updatedFormElement })
-                                        console.log(this.state.testUser.id)
+                                        this.prop
                                     }}
                                     secureTextEntry={true}
                                     
@@ -107,6 +128,7 @@ export class Register extends React.Component {
                                         first_name: text
                                     })
                                         this.setState({ testUser: updatedFormElement })
+                                        this.props.updateFirstName(text)
                                     }}    
                         />
                     </View>
@@ -122,25 +144,13 @@ export class Register extends React.Component {
                                         last_name: text
                                     })
                                         this.setState({ testUser: updatedFormElement })
+                                        this.props.updateLastName(text)
                                     }}
                         />
                     </View>
                     <View style={styles.inputView}>
-                        {/* Email Input */}
-                        <TextInput
-                                    style={styles.inputText}
-                                    placeholder={this.props.auth.email}
-                                    placeholderTextColor='#34415e'
-                                    autoCapitalize='none'
-                                
-                                    onChangeText={(text) => {
-                                        let updatedFormElement;
-                                        updatedFormElement = this.updateObject(
-                                            this.state.testUser, {email: text}
-                                            )
-                                        this.setState({ testUser: updatedFormElement })
-                                    }}
-                        />
+                        {/* Previous Email Input */}
+                        <Text>{this.props.auth.email}</Text>
                     </View>
                     <View style={styles.inputView}>
                         {/* Age Input */}
@@ -156,6 +166,7 @@ export class Register extends React.Component {
                                         age: number
                                     })
                                         this.setState({ testUser: updatedFormElement })
+                                        this.props.updateAge(number)
                                     }}
                         />
                     </View>
@@ -174,7 +185,7 @@ export class Register extends React.Component {
                                     gender: value
                                 })
                                     this.setState({ testUser: updatedFormElement })
-                                    
+                                    this.props.updateGender(value)
                                 }}>
                         </RNPickerSelect>
                     </View>
@@ -185,6 +196,7 @@ export class Register extends React.Component {
                             label: 'Select your classification...',
                             value: 'null'
                         }}
+                        style={styles.inputText}
                         placeholderTextColor=''
                         items={classification} 
                         onValueChange={(value) => {
@@ -193,7 +205,7 @@ export class Register extends React.Component {
                             classification: value
                         })
                             this.setState({ testUser: updatedFormElement })
-                            console.log(this.state.testUser.classification)
+                            this.props.updateClassification(value)
                         }}>
                         </RNPickerSelect>
                     </View>
@@ -211,6 +223,7 @@ export class Register extends React.Component {
                                         age: number
                                     })
                                         this.setState({ testUser: updatedFormElement })
+                                        this.props.updateMajor(number)
                                     }}
                         />
                     </View>
@@ -237,9 +250,17 @@ export class Register extends React.Component {
                         </TouchableOpacity>
                     </View>
                     
-                    <TouchableOpacity style={styles.buttonSignup} onPress={this.handleSignUp, this.setUser}>
+                    <TouchableOpacity 
+                    style={styles.buttonSignup} 
+                    onPress={ this.handleNextPage}>
                         <TextInput 
                         style={styles.buttonText}>Finish</TextInput>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                    style={styles.buttonSignup} 
+                    onPress={this.backPage}>
+                        <TextInput 
+                        style={styles.buttonText}>Back</TextInput>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -335,7 +356,7 @@ const styles = StyleSheet.create({
       interestInputText: {
         flex: 11,
         height: 25,
-        
+        color: 'white'
       },
       plusImage: {
         height: 20,
