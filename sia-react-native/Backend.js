@@ -56,7 +56,6 @@ class Backend extends React.Component {
           doc.data().location, doc.data().start_date_time, doc.data().end_date_time, []))
       });
     });
-    return events
     return new eventList(events);
   }
   // Usage
