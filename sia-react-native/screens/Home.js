@@ -45,14 +45,6 @@ class Home extends React.Component {
         <Text>{this.props.user.id}</Text>
         <Text>{this.props.user.first_name}</Text>
 				<Button title='Logout' onPress={this.handleSignout} />
-        <FlatList
-          data={this.props.events}
-          renderItem={({item}) => <Text>{item.name}</Text>}
-        />
-        </View>
-        <TouchableOpacity>
-          <Notification></Notification>
-        </TouchableOpacity>
 			</View>
     )
   }
