@@ -6,6 +6,18 @@ import achievement from '../../../sia-react-native/classes/achievement';
 describe("User initialization tests",() => {
     it("declares a default object successfully", () => {
         const generated_user = new user();
+
+        let default_parameters = new statisticList([
+            new statistic(
+                1,
+                "Events Attended",
+                "IDs of all attended events.",
+                2,
+                false,
+                0,
+                []
+              )]
+        );
     
         const expected_user = {
             id: -1,
@@ -16,8 +28,8 @@ describe("User initialization tests",() => {
             gender:"UNSET",
             classification:"UNSET",
             major:"UNSET",
-            interest_tags: new Set(),
-            statLibrary: new statisticList(),
+            interest_tags: [],
+            statLibrary: default_parameters,
             achievements: []
         };
 
@@ -79,7 +91,7 @@ describe("User initialization tests",() => {
             "Male",
             "Senior",
             "Computer Science",
-            new Set(["HobbyA","HobbyB"]),
+            ["HobbyA","HobbyB"],
             new statisticList([statistic_a,statistic_b]),
             [expected_achievement]
             );
@@ -94,7 +106,7 @@ describe("User initialization tests",() => {
             gender:"Male",
             classification:"Senior",
             major:"Computer Science",
-            interest_tags: new Set(["HobbyA","HobbyB"]),
+            interest_tags: ["HobbyA","HobbyB"],
             statLibrary: new statisticList([statistic_a,statistic_b]),
             achievements: [expected_achievement]
         };
@@ -107,13 +119,13 @@ describe("User initialization tests",() => {
 describe("User interest tags tests",() => {
     it("adds to interest tags", () => {
         const generated_user = new user();
-        expect(generated_user.getInterestTags()).toEqual(new Set([]));
+        expect(generated_user.getInterestTags()).toEqual([]);
 
         generated_user.addInterestTag("SampleA");
-        expect(generated_user.getInterestTags()).toEqual(new Set(["SampleA"]));
+        expect(generated_user.getInterestTags()).toEqual(["SampleA"]);
         
         generated_user.addInterestTag("SampleB");
-        expect(generated_user.getInterestTags()).toEqual(new Set(["SampleA","SampleB"]));
+        expect(generated_user.getInterestTags()).toEqual(["SampleA","SampleB"]);
     });
 
 
@@ -123,13 +135,32 @@ describe("User interest tags tests",() => {
         generated_user.addInterestTag("SampleA");
         generated_user.addInterestTag("SampleB");
         generated_user.addInterestTag("SampleC");
-        expect(generated_user.getInterestTags()).toEqual(new Set(["SampleA","SampleB","SampleC"]));
+        expect(generated_user.getInterestTags()).toEqual(["SampleA","SampleB","SampleC"]);
 
-        generated_user.deleteInterestTag("SampleB");
-        expect(generated_user.getInterestTags()).toEqual(new Set(["SampleA","SampleC"]));
-        
-        generated_user.deleteInterestTag("SampleC");
-        expect(generated_user.getInterestTags()).toEqual(new Set(["SampleA"]));
+        let response = generated_user.deleteInterestTag("SampleB");
+        expect(generated_user.getInterestTags()).toEqual(["SampleA","SampleC"]);
+        expect(response).toEqual(0);
+
+        response = generated_user.deleteInterestTag("SampleC");
+        expect(generated_user.getInterestTags()).toEqual(["SampleA"]);
+        expect(response).toEqual(0);
+    });
+
+    it("flags invalid removal requests", () => {
+        const generated_user = new user();
+
+        let response = generated_user.deleteInterestTag("SampleA");
+        expect(generated_user.getInterestTags()).toEqual([]);
+        expect(response).toEqual(1);
+
+
+        generated_user.addInterestTag("SampleA");
+        generated_user.addInterestTag("SampleB");
+        expect(generated_user.getInterestTags()).toEqual(["SampleA","SampleB"]);
+
+        response = generated_user.deleteInterestTag("SampleC");
+        expect(generated_user.getInterestTags()).toEqual(["SampleA","SampleB"]);
+        expect(response).toEqual(1);
     });
 });
 
@@ -242,7 +273,7 @@ describe("User achievements tests",() => {
             "Male",
             "Senior",
             "Computer Science",
-            new Set(["HobbyA","HobbyB"]),
+            ["HobbyA","HobbyB"],
             sample_user_state,
             []
             );
@@ -256,7 +287,7 @@ describe("User achievements tests",() => {
             "Male",
             "Senior",
             "Computer Science",
-            new Set(["HobbyA","HobbyB"]),
+            ["HobbyA","HobbyB"],
             sample_user_state,
             [sample_achievement_a,sample_achievement_b]
             );
@@ -278,7 +309,7 @@ describe("User achievements tests",() => {
             "Male",
             "Senior",
             "Computer Science",
-            new Set(["HobbyA","HobbyB"]),
+            ["HobbyA","HobbyB"],
             sample_user_state,
             [sample_achievement_c]
             );
@@ -292,7 +323,7 @@ describe("User achievements tests",() => {
             "Male",
             "Senior",
             "Computer Science",
-            new Set(["HobbyA","HobbyB"]),
+            ["HobbyA","HobbyB"],
             sample_user_state,
             [sample_achievement_a,sample_achievement_b]
             );

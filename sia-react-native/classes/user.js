@@ -1,4 +1,5 @@
 import statisticList from "./statisticList";
+import statistic from "./statistic";
 
 /*User class is describes all attributes of an app user.
 Includes common information full name and related email address.
@@ -14,7 +15,7 @@ class user {
     classification = "UNSET",
     major = "UNSET",
     interest_tags = [],
-    statLibrary = new statisticList(),
+    statLibrary = this._generateDefaultStatistics(),
     achievements = []
     ) {
     this.id = id;
@@ -37,19 +38,24 @@ class user {
     //Tracks user state and rewards them for a list of milestones
     this.statLibrary = statLibrary;
     this.achievements = achievements;
+
     return;
   }
 
   addInterestTag(new_interest_tag) {
-    (this.interest_tags).add(new_interest_tag);
+    (this.interest_tags).push(new_interest_tag);
     return;
   }
 
   deleteInterestTag(requested_interest_tag) {
-    if (this.interest_tags.has(requested_interest_tag)) {
-      (this.interest_tags).delete(requested_interest_tag);
+    for(let tag_cycler = 0; tag_cycler < this.interest_tags.length; tag_cycler++) {
+      if(this.interest_tags[tag_cycler] == requested_interest_tag) {
+        this.interest_tags.splice(tag_cycler,1);
+        return 0;
+      }
     }
-    return;
+
+    return 1;
   }
 
   getInterestTags() {
@@ -65,6 +71,25 @@ class user {
         this.achievements.push(cur_achievement);
       }
     }
+  }
+
+  _generateDefaultStatistics() {
+    let default_statistics = new statisticList();
+    //Statistic responsible for tracking the events
+    //attended by the user via ID
+    default_statistics.addStatistic(
+      new statistic(
+        1,
+        "Events Attended",
+        "IDs of all attended events.",
+        2,
+        false,
+        0,
+        []
+      )
+    );
+
+    return default_statistics;
   }
 }
 export default user;
