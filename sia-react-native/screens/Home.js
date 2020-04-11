@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  FlatList
+  FlatList,
+  TouchableOpacity
 } from 'react-native'
 import {
   bindActionCreators
@@ -49,7 +50,10 @@ class Home extends React.Component {
           renderItem={({item}) => <Text>{item.name}</Text>}
         />
         </View>
-
+        <TouchableOpacity>
+          <Notification></Notification>
+        </TouchableOpacity>
+			</View>
     )
   }
 }

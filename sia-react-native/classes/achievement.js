@@ -35,15 +35,29 @@ class achievement {
                 let achievement_stat = this.state_requirements.statistics[state_req_index];
 
                 if(user_stat.id == achievement_stat.id) {
-                    if(achievement_stat.isBoolean) {
-                        if(achievement_stat.flag != user_stat.flag) {
-                            return false;
-                        }
-                    }
-                    else {
-                        if(achievement_stat.quantity > user_stat.quantity) {
-                            return false;
-                        }
+                    switch(achievement_stat.statistic_type) {
+                        case 0:
+                            if(achievement_stat.flag != user_stat.flag) {
+                                return false;
+                            }
+                            break;
+
+                        case 1:
+                            if(achievement_stat.quantity > user_stat.quantity) {
+                                return false;
+                            }
+                            break;
+
+                        case 2:
+                            for(let stat_arr_index = 0; 
+                                stat_arr_index < achievement_stat.arr.length;
+                                stat_arr_index++) 
+                            {
+                                if(!(user_stat.isItemInList(achievement_stat.arr[stat_arr_index]))) {
+                                    return false;
+                                }
+                            }
+                            break;
                     }
                 }
             }
