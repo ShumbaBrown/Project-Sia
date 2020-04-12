@@ -2,7 +2,9 @@ import React from 'react';
 import Firebase from './Firebase'
 import event from './classes/event.js'
 import user from './classes/user.js'
-import eventList from './classes/eventList'
+import eventList from './classes/eventList.js'
+import statistic from './classes/statistic.js'
+import statisticList from './classes/statisticList.js'
 
 class Backend extends React.Component {
   constructor() {
@@ -144,6 +146,57 @@ class Backend extends React.Component {
       console.error("Error deleting user with id ", error);
     });
   }
+
+  statisticConverter = {
+    toFirestore: function(statistic) {
+      return {
+        id: statistic.id,
+        name: statistic.name,
+        description: statistic.description,
+        statistic_type: statistic.statistic_type,
+        flag: statistic.flag,
+        quality: statistic.quality,
+        arr: statistic.arr
+      }
+    },
+    fromFirestore: function(snapshot, options) {
+      const data = snapshot.data(options);
+      return new statistic(data.id, data.name, data.description,
+        data.statistic_type, data.flag, data.quantity, data.arr)
+    }
+  }
+
+  async addStatistic(statistic) {
+    const db = Firebase.firestore();
+    // Set with eventsConverter
+    var add_statistic = await db.collection("statistics").doc()
+      .withConverter(this.statisticConverter)
+      .set(statistic);
+
+    console.log("Statistic successfully added!");
+  }
+
+  deleteStatistic(statistic_id) {
+    const db = Firebase.firestore();
+    db.collection("statistics").doc(statistic_id).delete().then(function() {
+      console.log("Statistic successfully deleted!");
+    }).catch(function(error) {
+      console.error("Error deleting statistic with id ", error);
+    });
+  }
+
+  async getStatistics() {
+    const db = Firebase.firestore();
+    let statistics = []
+    await db.collection("statistics").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        statistics.push(new event(doc.id, doc.data().name, doc.data().description,
+          doc.data().statistic_type, doc.data().flag, doc.data().quantity, doc.data().arr))
+      });
+    });
+    return new statisticList(statistics);
+  }
+
 
 }
 export default Backend;
