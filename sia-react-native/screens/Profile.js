@@ -35,15 +35,6 @@ class Profile extends React.Component {
   updateUser = () => {
         // this.props.login()
         this.props.updateUser(this.props.user)
-      }
-
-
-  handleLogin = () => {
-        this.props.login()
-  }
-  updateUser = () => {
-        // this.props.login()
-        this.props.updateUser(this.props.user)
 
     }
 
@@ -80,10 +71,6 @@ class Profile extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={this.goBack}>
                     <Text style={styles.buttonText}>Back</Text>
                 </TouchableOpacity>
-                <Button
-                    title="Don't have an account yet? Sign up"
-                    onPress={() => this.props.navigation.navigate('Signup')}
-                />
             </View>
         )
     }
