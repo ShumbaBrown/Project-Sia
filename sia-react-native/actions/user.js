@@ -10,6 +10,10 @@ export const UPDATE_GENDER = 'UPDATE_GENDER'
 export const UPDATE_CLASSIFICATION = 'UPDATE_CLASSIFICATION'
 export const UPDATE_MAJOR = 'UPDATE_MAJOR'
 export const UPDATE_INTEREST_TAGS = 'UPDATE_INTEREST_TAGS'
+<<<<<<< HEAD
+=======
+export const UPDATE_ACHIEVEMENTS = 'UPDATE_ACHIEVEMENTS'
+>>>>>>> 25bba450be6a67555c693745655ba3af1fb9c175
 
 // actions
 export const updateFirstName = first_name => {
@@ -25,6 +29,7 @@ export const updateLastName = last_name => {
 		payload: last_name
 	}
 }
+<<<<<<< HEAD
 
 export const updateAge = age => {
 	return {
@@ -58,6 +63,48 @@ export const updateInterestTags = tags => {
 	return {
 		type: UPDATE_INTEREST_TAGS,
 		payload: tags
+=======
+
+export const updateAge = age => {
+	return {
+		type: UPDATE_AGE,
+		payload: age
+	}
+}
+
+export const updateGender = gender => {
+	return {
+		type: UPDATE_GENDER,
+		payload: gender
+	}
+}
+
+export const updateClassification = classification => {
+	return {
+		type: UPDATE_CLASSIFICATION,
+		payload: classification
+	}
+}
+
+export const updateMajor = major => {
+	return {
+		type: UPDATE_MAJOR,
+		payload: major
+	}
+}
+
+export const updateInterestTags = tags => {
+	return {
+		type: UPDATE_INTEREST_TAGS,
+		payload: tags
+	}
+}
+
+export const updateAchievements = achievements => {
+	return {
+		type: UPDATE_ACHIEVEMENTS,
+		payload: achievements
+>>>>>>> 25bba450be6a67555c693745655ba3af1fb9c175
 	}
 }
 

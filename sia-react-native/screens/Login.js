@@ -21,9 +21,6 @@ import {
   getUser
 } from '../actions/user'
 
-
-
-
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
