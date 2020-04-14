@@ -27,7 +27,10 @@ import {
 } from '../actions/user'
 
 class Profile extends React.Component {
+  goBack = () => {
 
+    this.props.navigation.navigate('Register')
+  }
   updateUser = () => {
         // this.props.login()
         this.props.updateUser(this.props.user)
@@ -56,6 +59,9 @@ class Profile extends React.Component {
                 />
                 <TouchableOpacity style={styles.button} onPress={this.updateUser}>
                     <Text style={styles.buttonText}>Update</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={this.goBack}>
+                    <Text style={styles.buttonText}>Back</Text>
                 </TouchableOpacity>
             </View>
         )
