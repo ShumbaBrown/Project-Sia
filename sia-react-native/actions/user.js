@@ -10,6 +10,7 @@ export const UPDATE_GENDER = 'UPDATE_GENDER'
 export const UPDATE_CLASSIFICATION = 'UPDATE_CLASSIFICATION'
 export const UPDATE_MAJOR = 'UPDATE_MAJOR'
 export const UPDATE_INTEREST_TAGS = 'UPDATE_INTEREST_TAGS'
+export const UPDATE_ACHIEVEMENTS = 'UPDATE_ACHIEVEMENTS'
 
 // actions
 export const updateFirstName = first_name => {
@@ -61,68 +62,10 @@ export const updateInterestTags = tags => {
 	}
 }
 
-export const updateUser = (user) => {
-	return async (dispatch, getState) => {
-		try {
-			let backend = new Backend;
-			backend.updateUser(user).then( () => {
-				dispatch({ type: UPDATE_USER, payload: user})
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
-}
-			
-			
-
-// actions
-export const updateFirstName = first_name => {
+export const updateAchievements = achievements => {
 	return {
-		type: UPDATE_FIRST_NAME,
-		payload: first_name
-	}
-}
-
-export const updateLastName = last_name => {
-	return {
-		type: UPDATE_LAST_NAME,
-		payload: last_name
-	}
-}
-
-export const updateAge = age => {
-	return {
-		type: UPDATE_AGE,
-		payload: age
-	}
-}
-
-export const updateGender = gender => {
-	return {
-		type: UPDATE_GENDER,
-		payload: gender
-	}
-}
-
-export const updateClassification = classification => {
-	return {
-		type: UPDATE_CLASSIFICATION,
-		payload: classification
-	}
-}
-
-export const updateMajor = major => {
-	return {
-		type: UPDATE_MAJOR,
-		payload: major
-	}
-}
-
-export const updateInterestTags = tags => {
-	return {
-		type: UPDATE_INTEREST_TAGS,
-		payload: tags
+		type: UPDATE_ACHIEVEMENTS,
+		payload: achievements
 	}
 }
 
