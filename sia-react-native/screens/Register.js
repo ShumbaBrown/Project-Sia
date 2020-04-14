@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Image, View,TextInput, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import {Image, View, TextInput, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList} from 'react-native'
 import User from '../classes/user'
-import RNPickerSelect from 'react-native-picker-select' 
+import PickerSelect from 'react-native-picker-select' 
 import {
     updateEmail,
     updatePassword,
@@ -23,12 +23,10 @@ import {
 
 export class Register extends React.Component {
 
-    // TODO: initialize User object
-    // 1. import user class - DONE
-    // 2. assign members of class to fields below - DONE
-    // 3. save them to one(1) object when 'Finish' is pressed 
-    // - a. use actions to store each attribute yo(bitch how tho?)
-    // 4. Fix inputs for for the user - DONE
+    // TODO: Add dynamic list for interest tags
+    // find a way to map each element to a html tag
+    // create new element when 'plus' button is triggered
+    // delete element when item in interest list is triggered
     constructor(props) {
         super(props)
         
@@ -39,6 +37,7 @@ export class Register extends React.Component {
         }
         
     }
+    
     setUser =() => {
         
 
@@ -75,12 +74,18 @@ export class Register extends React.Component {
           }));
     }
     render() {
+        /* use for the list of interest tags */
+        const books = [
+        { label: 'book1', value: 'book1' },
+        { text: 'create an app', key: '2' },
+        { text: 'play on the switch', key: '3' }
+      ]
         var gender = [
             {label: 'Female', value: "female"},
-            {label: 'Male', value: "male" },
-            {label: 'Non-binary', value: "non-binary"},
-            {label: 'Gender Non-conforming', value: "gender non-conforming"},
-            {label: 'Not listed', value: "Not listed"}
+            {label: 'Male', value: 'male' },
+            {label: 'Non-binary', value: 'non-binary'},
+            {label: 'Gender Non-conforming', value: 'gender non-conforming'},
+            {label: 'Not listed', value: 'not listed'}
           ]
         var classification = [
             {label: 'Freshman/First Year', value: 'freshman'},
@@ -88,6 +93,9 @@ export class Register extends React.Component {
             {label: 'Junior/Third Year', value: 'junior'},
             {label: 'Senior/Fourth Year', value: 'senior'}
         ]
+        
+        
+            
         
         return (
             <ScrollView>
@@ -150,7 +158,7 @@ export class Register extends React.Component {
                     </View>
                     <View style={styles.inputView}>
                         {/* Previous Email Input */}
-                        <Text>{this.props.auth.email}</Text>
+                        <Text style={styles.inputText}>{this.props.auth.email}</Text>
                     </View>
                     <View style={styles.inputView}>
                         {/* Age Input */}
@@ -172,7 +180,8 @@ export class Register extends React.Component {
                     </View>
                     {/* Gender Input */}
                     <View style={styles.inputView}>
-                        <RNPickerSelect 
+                        <PickerSelect 
+                        style={PickerStyle}
                         placeholder={{
                             label: 'Select your gender...',
                             value: 'null'
@@ -186,17 +195,17 @@ export class Register extends React.Component {
                                 })
                                     this.setState({ testUser: updatedFormElement })
                                     this.props.updateGender(value)
-                                }}>
-                        </RNPickerSelect>
+                                }}/>
+                        
                     </View>
                     <View style={styles.inputView}>
                         {/* Classification Input */}
-                        <RNPickerSelect 
+                        <PickerSelect 
                         placeholder={{
                             label: 'Select your classification...',
                             value: 'null'
                         }}
-                        style={styles.inputText}
+                        style={PickerStyle}
                         placeholderTextColor=''
                         items={classification} 
                         onValueChange={(value) => {
@@ -207,7 +216,7 @@ export class Register extends React.Component {
                             this.setState({ testUser: updatedFormElement })
                             this.props.updateClassification(value)
                         }}>
-                        </RNPickerSelect>
+                        </PickerSelect>
                     </View>
                     <View style={styles.inputView}>
                         {/* Major Input */}
@@ -236,9 +245,9 @@ export class Register extends React.Component {
                             mockInterest: item
                             })
                         }
-                        
-                    }
-                        >
+                        /*Need an interest tag function 
+                        to store interests to db */
+                    }>
                         </TextInput>
                         <TouchableOpacity 
                         style={styles.plusImageContainer} 
@@ -249,18 +258,26 @@ export class Register extends React.Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    
+                    <View>
+                    {/*new interests should be here */}
+                    {/* <FlatList
+                    data={books}
+                    renderItem={({item}) => (
+                        <Text>{item.text}</Text>
+                    )
+                    }/> */}
+                    </View>
                     <TouchableOpacity 
                     style={styles.buttonSignup} 
                     onPress={ this.handleNextPage}>
-                        <TextInput 
-                        style={styles.buttonText}>Finish</TextInput>
+                        <Text 
+                        style={styles.buttonText}>Finish</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     style={styles.buttonSignup} 
                     onPress={this.backPage}>
-                        <TextInput 
-                        style={styles.buttonText}>Back</TextInput>
+                        <Text 
+                        style={styles.buttonText}>Back</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -268,6 +285,17 @@ export class Register extends React.Component {
     }
 }
 
+const PickerStyle = {
+    placeholderTextColor : 'blue',
+    inputIOS : {
+        color : 'white'
+    },
+    inputAndroid : {
+        color: 'white'
+    }
+
+
+}
 const styles = StyleSheet.create({
     button: {
         marginTop: 30,
@@ -303,14 +331,14 @@ const styles = StyleSheet.create({
     },
     inputText: {
         flex: 2,
-        height: 55,
+        height: 60,
         color: "white"
       },
     inputView: {
         width: "85%",
         backgroundColor: "#465881",
         borderRadius: 25,
-        height: 55,
+        height: 60,
         marginBottom: 20,
         justifyContent: "center",
         padding: 20
@@ -339,23 +367,20 @@ const styles = StyleSheet.create({
         marginRight: 20,
         color: 'white'
       },
-      pickerSelect: {
-            height: 10
-      },
       interestInputView: {
         flexDirection: 'row',
         alignItems: 'center',
         width: "85%",
         backgroundColor: "#465881",
         borderRadius: 25,
-        height: 50,
+        height: 60,
         marginBottom: 20,
         justifyContent: "center",
         padding: 20
       },
       interestInputText: {
         flex: 11,
-        height: 25,
+        height: 60,
         color: 'white'
       },
       plusImage: {
