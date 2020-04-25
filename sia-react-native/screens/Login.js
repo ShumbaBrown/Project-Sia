@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   StyleSheet,
+  Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
@@ -48,24 +49,27 @@ class Login extends React.Component {
         return (
           <DismissKeyboard>
             <View style={styles.container}>
-            <Text style={styles.logo}>SIA</Text>
+              <Image
+                style={styles.Sialogo}
+                source={require('../assets/sialogo.png')}
+              />
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputBox}
                     value={this.props.auth.email}
                     onChangeText={email => this.props.updateEmail(email)}
                     placeholder='Email'
-                    placeholderTextColor="#003f5c"
+                    placeholderTextColor="#38444C"
+                    color="white"
                     autoCapitalize='none'
                 />
             </View>
             <View style={styles.inputView} >
                 <TextInput
-                    style={styles.inputBox}
                     value={this.props.auth.password}
                     onChangeText={password => this.props.updatePassword(password)}
                     placeholder='Password'
-                    placeholderTextColor="#003f5c"
+                    placeholderTextColor="#38444C"
+                    color="white"
                     secureTextEntry={true}
                 />
             </View>
@@ -89,28 +93,33 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#003f5c',
+    backgroundColor: '#15202A',
     alignItems: 'center',
     justifyContent: 'center'
   },
+  Sialogo: {
+    width: 300,
+    height: 300,
+  },
   inputView: {
     width: "80%",
-    backgroundColor: "#465881",
+    backgroundColor: "#1a2733",
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
     justifyContent: "center",
     padding: 20
   },
+  
   inputText: {
     height: 50,
     color: "white"
   },
   logo: {
     fontWeight: "bold",
-    fontSize: 50,
-    color: "#fb5b5a",
-    marginBottom: 40
+    fontSize: 20,
+    color: "white",
+    marginBottom: 20
   },
   button: {
     marginTop: 30,
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: "80%",
-    backgroundColor: "#fb5b5a",
+    backgroundColor: "#FF0000",
     borderRadius: 25,
     height: 50,
     alignItems: "center",
@@ -164,3 +173,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Login)
+
