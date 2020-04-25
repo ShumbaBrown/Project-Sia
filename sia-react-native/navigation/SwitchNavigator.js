@@ -22,10 +22,10 @@ const SwitchNavigator = createSwitchNavigator(
         Profile: {
             screen: Profile
         },
-        list: {
+        List: {
             screen: EventListFront
         },
-        form: {
+        Form: {
             screen: EventForm
         },
     },
