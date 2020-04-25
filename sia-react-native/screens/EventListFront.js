@@ -63,7 +63,7 @@ class EventListFront extends Component {
     }
 
     handleAddEvent = () => {
-        this.props.navigation.navigate('form')
+        this.props.navigation.navigate('Form')
     };
 
     openAlert = () => {
