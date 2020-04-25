@@ -61,7 +61,7 @@ class EventForm extends Component {
     handleAddPress = () => {
         addEvent(this.state)
             .then(() => {
-                this.props.navigation.goBack('list');
+                this.props.navigation.goBack('List');
             })
     };
 
@@ -70,7 +70,7 @@ class EventForm extends Component {
     };
 /*
     handleAddPress = () => {
-        this.props.navigation.goBack('list');
+        this.props.navigation.goBack('List');
 
     };*/
 
