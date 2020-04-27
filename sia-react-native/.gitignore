@@ -10,5 +10,6 @@ npm-debug.*
 web-build/
 web-report/
 package.json
+npm-shrinkwrap.json
 # macOS
 .DS_Store
