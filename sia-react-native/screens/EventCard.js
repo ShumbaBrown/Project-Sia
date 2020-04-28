@@ -59,10 +59,13 @@ export default function EventCard({ event }) {
 
     return (
         <TouchableHighlight>
+            
             <View style={styles.card}>
+            <Text>{console.log("Here's an event" + {event})};
+            </Text>
                 <View style={styles.cardHeader}>
 
-                    <Text style={styles.title}>{event.name}</Text>
+                    <Text style={styles.title}>Here's the event name: {event.name}</Text>
                     <Text style={styles.title2}>{event.description}</Text>
                     <Text style={styles.title3}>{event.location}</Text>
                     <Text style={styles.title3}>{event.start_date_time}</Text>

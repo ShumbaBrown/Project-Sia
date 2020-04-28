@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { FlatList, Text, Image, View, StyleSheet } from 'react-native';
+import {
+    FlatList, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback,
+    Keyboard, Image, View, StyleSheet } from 'react-native';
 import ActionButton from 'react-native-action-button';
-import EventCard from "./EventCard";
-import { getEvents } from "../Backend";
-
+import Backend from "../Backend";
+import {
+    getEvents,
+    addEvent
+  } from '../actions/events'
+import EventForm from "./EventForm"
+import eventList from '../classes/eventList';
+import event from '../classes/event'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 const styles = StyleSheet.create({
     container: {
@@ -11,8 +20,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: '#15202A'
     },
-    list: {
+    card: {
+        backgroundColor: '#fff',
         flex: 1,
+        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 20,
+        margin: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    list: {
+        height: 500,
         paddingTop: 5
     },
 
@@ -46,144 +65,224 @@ const styles = StyleSheet.create({
         marginLeft: 7,
         textAlign: 'left',
     },
-
+    container:
+    {
+        flex: 1,
+        backgroundColor: '#003f5c'
+    },
+    fieldContainer: {
+        marginTop: 200,
+        marginBottom: 20,
+        backgroundColor: '#fff'
+    },
+    text: {
+        height: 45,
+        margin: 0,
+        marginRight: 7,
+        paddingLeft: 10
+    },
+    borderTop: {
+        borderColor: '#edeeef',
+        borderTopWidth: 0.5,
+    },
+    button: {
+        height: 50,
+        backgroundColor: '#fb5b5a',
+        borderColor: '#fb5b5a',
+        alignSelf: 'stretch',
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 18,
+    },
+    buttonContainer: {
+        paddingTop: 20,
+    }
 });
 
-
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
 
 class EventListFront extends Component {
     state = {
-        events: [],
+        currentEvent: new event(),
+        events: new eventList(),
     };
 
     
     componentDidMount() {
-           
-        this.props.navigation.addListener('didFocus', () => getEvents().then( events => this.setState({ events })))
+        //this.props.navigation.addListener('didFocus', () => getEvents()
+        //.then( events => this.setState({ events })))
     }
-
-    handleAddEvent = () => {
-        this.props.navigation.navigate('Form')
-    };
-
     openAlert = () => {
         alert('You can get an achievement by adding an event.');
     };
 
+    
     buttonFunction = () => {
         this.openAlert();
-        this.handleAddPress();
+        //this.handleAddEvent();
     };
+    submitFunction = () => {
+        this.setState({
+            currentEvent:{
+                ...this.state.currentEvent,
+                id: Math.floor(Math.random() % 100) + 1
+            }
+        })
 
-
+        
+        this.state.events.addEvent(this.state.currentEvent)
+        console.log(this.state.events.events)
+    }
+    updateObject = (oldObject, updatedProperties) => {
+        // used to update user attributes
+        return {
+            ...oldObject,
+            ...updatedProperties
+        }
+    }
     render() {
         return (
+            <DismissKeyboard>
             <View>
+                
                 <Image
                     source={require("../assets/bisonlogo.png")}
                     resizeMode="cover"
-                    style={{ width: 400, height: 700, opacity: 0.5 }}
+                    style={{ width: 400, height: 700, position: 'absolute', opacity: 0.5 }}
                 />
-            </View>,
-          
-                <FlatList
-                    key="flatlist"
-                    style={styles.list}
-                    data={this.state.events}
-                    renderItem={({ item, separators }) => (<EventCard event={item} />)}
-                    keyExtractor={item => item.id}
-                />,
-                <ActionButton
-                    key="fab"
-                buttonColor="#FF0000"
-                    onPress={this.buttonFunction}
-                />
-        
+                
+                <View
+                    >
+
+                    <View style={styles.fieldContainer}>
+                        <TextInput style={styles.text}
+                            placeholder="Event title"
+                            spellCheck={false}
+                            value={this.state.name}
+                            onChangeText={this.handleChangeTitle, (title) => {
+                                let updatedFormElement;
+                                updatedFormElement = 
+                                this.updateObject(this.state.currentEvent, {title: title})
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
+                        />
+
+                        <TextInput style={styles.text}
+                            placeholder="Event description"
+                            spellCheck={false}
+                            value={this.state.description}
+                            onChangeText={this.handleChangeDescription, (desc) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                description: desc
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                            }}
+                        />
+
+                        <TextInput style={styles.text}
+                            placeholder="Event location"
+                            spellCheck={false}
+                            value={this.state.location}
+                            onChangeText={this.handleChangeLocation, (loc) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                location: loc
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
+                        />
+
+                        <TextInput style={styles.text}
+                            placeholder="Event start time... 5:00 PM"
+                            spellCheck={false}
+                            value={this.state.start_date_time}
+                            onChangeText={this.handleChangeStartTime, (time) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                start_date_time: time
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
+                        />
+
+                        <TextInput style={styles.text}
+                            placeholder="Event end time... 7:00 PM"
+                            spellCheck={false}
+                            value={this.state.end_date_time}
+                            onChangeText={this.handleChangeEndTime, (time) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                end_date_time: time
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
+                        />
+
+                    </View>
+                    <View style={styles.buttonContainer}>
+                    <TouchableHighlight
+                        onPress={this.submitFunction}
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>Add Event</Text>
+                    </TouchableHighlight>
+                    </View>
+                </View>
+            
+            
+                
+            
+            <View> 
+                {this.state.events.events.map(event => 
+                (console.log(event.title),
+                <View>
+                    <Text> {event.title}</Text>
+                    <Text> {event.location}</Text>
+                    <Text> {event.description}</Text>
+                    <Text> {event.start_date_time}</Text>
+                    <Text> {event.end_date_time}</Text>
+                </View> ))}
+                </View> 
+                    
+                    
+                
+                
+                
+        </View>
+            </DismissKeyboard>
         );
     }
 }
 
-export default EventListFront;
-
-
-
-
-/*
-
-const DATA = [
-    {
-        id: '1',
-        name: 'First Item',
-        description: 'Workout party',
-        location: 'LKD 2019',
-        start_date_time: 'April 5th, 2020/5:00PM',
-        end_date_time: 'April 5h, 2020/7:00PM',
-    },
-    {
-        id: '2',
-        name: 'Second Item',
-        description: 'Resume Building',
-        location: 'LKD 2019',
-        start_date_time: 'April 5th, 2020/5:00PM',
-        end_date_time: 'April 5h, 2020/7:00PM',
-
-    },
-    {
-        id: '3',
-        name: 'Third Ite',
-        description: 'Info session about microsoft',
-        location: 'LKD 2019',
-        start_date_time: 'April 5th, 2020/5:00PM',
-        end_date_time: 'April 5h, 2020/7:00PM',
-    },
-];
-
-function Item({ name }) {
-    return (
-        <View style={styles.card}>
-            <Text style={styles.title}>{name}</Text>
-        </View>
-    );
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({getEvents, addEvent}, dispatch)
 }
 
-function Item2({ description }) {
-    return (
-        <View style={styles.card}>
-            <Text style={styles.title2}>{description}</Text>
-        </View>
-    );
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+        user: state.user,
+        events: state.events
+    }
 }
 
-function Item3({ location }) {
-    return (
-        <View style={styles.card}>
-            <Text style={styles.title3}>{location}</Text>
-        </View>
-    );
-}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EventListFront)
 
-function Item4({ start_date_time }) {
-    return (
-        <View style={styles.card}>
-            <Text style={styles.title3}>{start_date_time}</Text>
-        </View>
-    );
-}
-
-function Item5({ end_date_time }) {
-    return (
-        <View style={styles.card}>
-            <Text style={styles.title3}>{end_date_time}</Text>
-        </View>
-    );
-}
-*/
-
- /*
-            <View>
-                <Image
-                    source={require("../assets/bisonlogo.png")}
-                    resizeMode="cover"
-                    style={{ width: 400, height: 700, opacity: 0.5 }}
-                />
-            </View>*/
+export {EventListFront};
