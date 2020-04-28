@@ -4,6 +4,7 @@ import {
     Keyboard, TextInput, StyleSheet
 } from 'react-native';
 import { addEvent } from "../Backend";
+import event from "../classes/event"
 
 const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -18,12 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#003f5c'
     },
     fieldContainer: {
-        marginTop: 20,
+        marginTop: 200,
         marginBottom: 20,
         backgroundColor: '#fff'
     },
     text: {
-        height: 40,
+        height: 45,
         margin: 0,
         marginRight: 7,
         paddingLeft: 10
@@ -41,11 +42,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
+        
     },
     buttonText: {
         color: '#fff',
         fontSize: 18,
     },
+    buttonContainer: {
+        paddingTop: 200,
+    }
 });
 
 class EventForm extends Component {
@@ -55,30 +60,22 @@ class EventForm extends Component {
         location: null,
         start_date_time: null,
         end_date_time: null,
+        currentEvent: new event()
     };
 
-    
-    handleAddPress = () => {
-        addEvent(this.state)
-            .then(() => {
-                this.props.navigation.goBack('List');
-            })
-    };
 
     openAlert = () => {
         alert('Congrats! You got an achievement.');
     };
-/*
-    handleAddPress = () => {
-        this.props.navigation.goBack('List');
-
-    };*/
-
     buttonFunction = () => {
         this.openAlert();
         this.handleAddPress();
     };
+    handleAddPress = () => {
+        this.setState( {
 
+        })
+    }
     handleChangeTitle = (value) => {
         this.setState({ name: value })
     };
@@ -98,6 +95,13 @@ class EventForm extends Component {
     handleChangeEndTime = (value) => {
         this.setState({ end_date_time: value })
     };
+    updateObject = (oldObject, updatedProperties) => {
+        // used to update user attributes
+        return {
+            ...oldObject,
+            ...updatedProperties
+        }
+    }
     render() {
         return (
             <DismissKeyboard>
@@ -109,44 +113,79 @@ class EventForm extends Component {
                             placeholder="Event title"
                             spellCheck={false}
                             value={this.state.name}
-                            onChangeText={this.handleChangeTitle}
+                            onChangeText={this.handleChangeTitle, (title) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                title: title
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
                         />
 
                         <TextInput style={styles.text}
                             placeholder="Event description"
                             spellCheck={false}
                             value={this.state.description}
-                            onChangeText={this.handleChangeDescription}
+                            onChangeText={this.handleChangeDescription, (desc) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                description: desc
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                            }}
                         />
 
                         <TextInput style={styles.text}
                             placeholder="Event location"
                             spellCheck={false}
                             value={this.state.location}
-                            onChangeText={this.handleChangeLocation}
+                            onChangeText={this.handleChangeLocation, (loc) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                location: loc
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
                         />
 
                         <TextInput style={styles.text}
                             placeholder="Event start time... 5:00 PM"
                             spellCheck={false}
                             value={this.state.start_date_time}
-                            onChangeText={this.handleChangeStartTime}
+                            onChangeText={this.handleChangeStartTime, (time) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                start_date_time: time
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
                         />
 
                         <TextInput style={styles.text}
                             placeholder="Event end time... 7:00 PM"
                             spellCheck={false}
                             value={this.state.end_date_time}
-                            onChangeText={this.handleChangeEndTime}
+                            onChangeText={this.handleChangeEndTime, (time) => {
+                                let updatedFormElement;
+                                updatedFormElement = this.updateObject(this.state.currentEvent, {
+                                end_date_time: time
+                            })
+                                this.setState({ currentEvent: updatedFormElement })
+                                
+                            }}
                         />
 
                     </View>
+                    <View style={styles.buttonContainer}>
                     <TouchableHighlight
                         onPress={this.buttonFunction}
-                        style={styles.button}
-                    >
+                        style={styles.button}>
                         <Text style={styles.buttonText}>Add Event</Text>
                     </TouchableHighlight>
+                    </View>
                 </View>
             </DismissKeyboard>
         );
