@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { FlatList, Text, TextInput, TouchableHighlight, Image, View, StyleSheet } from 'react-native';
+import {
+    FlatList, Text, TextInput, TouchableHighlight, TouchableWithoutFeedback,
+    Keyboard, Image, View, StyleSheet } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import Backend from "../Backend";
 import {
@@ -103,7 +105,11 @@ const styles = StyleSheet.create({
     }
 });
 
-
+const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
 
 class EventListFront extends Component {
     state = {
@@ -146,6 +152,7 @@ class EventListFront extends Component {
     }
     render() {
         return (
+            <DismissKeyboard>
             <View>
                 
                 <Image
@@ -247,6 +254,7 @@ class EventListFront extends Component {
                     <Text> {event.location}</Text>
                     <Text> {event.description}</Text>
                     <Text> {event.start_date_time}</Text>
+                    <Text> {event.end_date_time}</Text>
                 </View> ))}
                 </View> 
                     
@@ -255,6 +263,7 @@ class EventListFront extends Component {
                 
                 
         </View>
+            </DismissKeyboard>
         );
     }
 }
