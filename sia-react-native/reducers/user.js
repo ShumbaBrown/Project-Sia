@@ -9,7 +9,6 @@ import { GET_USER,
   UPDATE_CLASSIFICATION,
   UPDATE_MAJOR,
   UPDATE_INTEREST_TAGS } from '../actions/user'
-import { GET_USER } from '../actions/user'
 
 
 export default function user(state = {}, action) {

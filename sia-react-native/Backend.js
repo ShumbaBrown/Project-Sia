@@ -3,6 +3,7 @@ import Firebase from './Firebase'
 import event from './classes/event.js'
 import user from './classes/user.js'
 import eventList from './classes/eventList'
+import firestore from 'firebase/firestore'
 
 class Backend extends React.Component {
   constructor() {

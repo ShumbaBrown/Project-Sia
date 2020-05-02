@@ -28,6 +28,7 @@ import {
 class Signup extends React.Component {
   
   constructor() {
+    super()
     state = {
       name: "",
       email: "",
