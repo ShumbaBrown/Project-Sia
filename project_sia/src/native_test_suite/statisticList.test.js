@@ -18,39 +18,61 @@ describe("Statistic List initialization tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         const statistic_b = new statistic(
             985,
             "Sample Stat B",
             "Given Description B",
+            0,
             true,
-            true,
-            0
+            0,
+            []
             );
+            const statistic_c = new statistic(
+                777,
+                "Sample Stat C",
+                "Given Description C",
+                2,
+                false,
+                0,
+                [1,2,3]
+                );
 
-        const generated_statistic_list = new statisticList([statistic_a,statistic_b]);
+        const generated_statistic_list = new statisticList([statistic_a,statistic_b,statistic_c]);
     
         const expected_statistic_list = {
             statistics: [
-                {
-                    id: 256,
-                    name: "Sample Stat A",
-                    description: "Given Description A",
-                    isBoolean: false,
-                    flag: false,
-                    quantity: 3
-                },
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    256,
+                    "Sample Stat A",
+                    "Given Description A",
+                    1,
+                    false,
+                    3,
+                    []
+                ),
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    []
+                ),
+                new statistic(
+                    777,
+                    "Sample Stat C",
+                    "Given Description C",
+                    2,
+                    false,
+                    0,
+                    [1,2,3]
+                )
             ]
         };
     
@@ -66,21 +88,23 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         
             const expected_statistic_list = {
                 statistics: [
-                    {
-                        id: 256,
-                        name: "Sample Stat A",
-                        description: "Given Description A",
-                        isBoolean: false,
-                        flag: false,
-                        quantity: 3
-                    }
+                    new statistic(
+                        256,
+                        "Sample Stat A",
+                        "Given Description A",
+                        1,
+                        false,
+                        3,
+                        []
+                    )
                 ]
             };
 
@@ -95,17 +119,19 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         const statistic_b = new statistic(
             985,
             "Sample Stat B",
             "Given Description B",
+            0,
             true,
-            true,
-            0
+            0,
+            []
             );
 
         const generated_statistic_list = new statisticList([statistic_a,statistic_b]);
@@ -115,14 +141,15 @@ describe("Statistic List modification tests",() => {
 
         const expected_statistic_list = {
             statistics: [
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    []
+                )
             ]
         };
         
@@ -135,17 +162,19 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         const statistic_b = new statistic(
             985,
             "Sample Stat B",
             "Given Description B",
+            0,
             true,
-            true,
-            0
+            0,
+            []
             );
 
         const generated_statistic_list = new statisticList([statistic_a,statistic_b]);
@@ -154,22 +183,24 @@ describe("Statistic List modification tests",() => {
 
         const expected_statistic_list = {
             statistics: [
-                {
-                    id: 256,
-                    name: "Sample Stat A",
-                    description: "Given Description A",
-                    isBoolean: false,
-                    flag: false,
-                    quantity: 3
-                },
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    256,
+                    "Sample Stat A",
+                    "Given Description A",
+                    1,
+                    false,
+                    3,
+                    []
+                ),
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    []
+                )
             ]
         };
         
@@ -182,17 +213,19 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         const statistic_b = new statistic(
             985,
             "Sample Stat B",
             "Given Description B",
+            0,
             true,
-            true,
-            0
+            0,
+            []
             );
 
 
@@ -204,30 +237,33 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         
 
             const expected_statistic_list = {
                 statistics: [
-                    {
-                        id: 256,
-                        name: "Sample Stat A",
-                        description: "Given Description A",
-                        isBoolean: false,
-                        flag: false,
-                        quantity: 3
-                    },
-                    {
-                        id: 985,
-                        name: "Sample Stat B",
-                        description: "Given Description B",
-                        isBoolean: true,
-                        flag: true,
-                        quantity: 0
-                    }
+                    new statistic(
+                        256,
+                        "Sample Stat A",
+                        "Given Description A",
+                        1,
+                        false,
+                        3,
+                        []
+                    ),
+                    new statistic(
+                        985,
+                        "Sample Stat B",
+                        "Given Description B",
+                        0,
+                        true,
+                        0,
+                        []
+                    )
                 ]
             };
         
@@ -243,17 +279,19 @@ describe("Statistic List modification tests",() => {
             256,
             "Sample Stat A",
             "Given Description A",
+            1,
             false,
-            false,
-            3
+            3,
+            []
             );
         const statistic_b = new statistic(
             985,
             "Sample Stat B",
             "Given Description B",
+            0,
             true,
-            true,
-            0
+            0,
+            []
             );
 
 
@@ -263,22 +301,24 @@ describe("Statistic List modification tests",() => {
 
         const expected_statistic_list = {
             statistics: [
-                {
-                    id: 256,
-                    name: "Sample Stat A",
-                    description: "Given Description A",
-                    isBoolean: false,
-                    flag: false,
-                    quantity: 3
-                },
-                {
-                    id: 985,
-                    name: "Sample Stat B",
-                    description: "Given Description B",
-                    isBoolean: true,
-                    flag: true,
-                    quantity: 0
-                }
+                new statistic(
+                    256,
+                    "Sample Stat A",
+                    "Given Description A",
+                    1,
+                    false,
+                    3,
+                    []
+                ),
+                new statistic(
+                    985,
+                    "Sample Stat B",
+                    "Given Description B",
+                    0,
+                    true,
+                    0,
+                    []
+                )
             ]
         };
 

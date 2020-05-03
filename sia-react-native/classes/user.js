@@ -91,16 +91,5 @@ class user {
 
     return default_statistics;
   }
-
-  updateAchievements(achievement_library=[]) {
-    this.achievements = [];
-    for(let ach_cycler = 0; ach_cycler < achievement_library.length; ach_cycler++) {
-      let cur_achievement = achievement_library[ach_cycler];
-
-      if(cur_achievement.areRequirementsMet(this.statLibrary)) {
-        this.achievements.push(cur_achievement);
-      }
-    }
-  }
 }
 export default user;

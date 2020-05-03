@@ -29,6 +29,7 @@ class Signup extends React.Component {
   handleNextPage = () => {
     this.props.signup().then( () => {
       this.props.getUser()
+      this.props.navigation.navigate('Profile')
     })
     this.props.navigation.navigate('Register')
   }

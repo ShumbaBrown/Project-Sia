@@ -32,7 +32,6 @@ class Profile extends React.Component {
     this.props.navigation.navigate('Register')
   }
   updateUser = () => {
-        // this.props.login()
         this.props.updateUser(this.props.user)
         this.props.navigation.navigate('Home')
     }
