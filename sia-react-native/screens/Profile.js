@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { updateEmail, updatePassword, login, signup } from '../actions/user'
 import Backend from '../Backend.js'
 import event from '../classes/event.js'
@@ -35,19 +34,12 @@ class Profile extends React.Component {
   updateUser = () => {
         // this.props.login()
         this.props.updateUser(this.props.user)
-
+        this.props.navigation.navigate('Home')
     }
 
   render() {
         return (
             <View style={styles.container}>
-
-                <TextInput
-                    style={styles.inputBox}
-                    value={this.props.user.email}
-                    onChangeText={email => this.props.updateEmail(email)}
-                    placeholder='Email'></TextInput>
-
                 <Text>{this.props.user.id}</Text>
                 <Text>{this.props.user.first_name}</Text>
                 <Text>{this.props.user.last_name}</Text>
@@ -130,7 +122,6 @@ const mapDispatchToProps = dispatch => {
     updateInterestTags
   }, dispatch)
 }
-
 
 const mapStateToProps = state => {
   return {

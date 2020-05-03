@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-
 import { GET_USER,
   UPDATE_USER,
   UPDATE_FIRST_NAME,
@@ -8,8 +7,8 @@ import { GET_USER,
   UPDATE_GENDER,
   UPDATE_CLASSIFICATION,
   UPDATE_MAJOR,
-  UPDATE_INTEREST_TAGS } from '../actions/user'
-
+  UPDATE_INTEREST_TAGS,
+  UPDATE_ACHIEVEMENTS } from '../actions/user'
 
 export default function user(state = {}, action) {
     switch (action.type) {
@@ -31,6 +30,8 @@ export default function user(state = {}, action) {
             return { ...state, major: action.payload }
         case UPDATE_INTEREST_TAGS:
             return { ...state, interest_tags: action.payload }
+        case UPDATE_ACHIEVEMENTS:
+            return { ...state, achievements: action.payload }
         default:
             return state
     }

@@ -82,7 +82,6 @@ export const updateUser = (user) => {
 	}
 }
 
-
 export const getUser = () => {
 	return async (dispatch, getState) => {
 		try {

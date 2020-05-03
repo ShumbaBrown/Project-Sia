@@ -78,12 +78,15 @@ class Backend extends React.Component {
         classification: user.classification,
         major: user.major,
         interest_tags: user.interest_tags,
+        statLibrary: user.statLibrary,
+        achievements: user.achievements
       }
     },
     fromFirestore: function(snapshot, options) {
       const data = snapshot.data(options);
       return new user(data.id, data.first_name, data.last_name, data.email,
-        data.age, data.gender, data.classification, data.major, data.interest_tags)
+        data.age, data.gender, data.classification, data.major, data.interest_tags,
+        data.statLibrary, data.achievements)
     }
   }
 
@@ -104,7 +107,8 @@ class Backend extends React.Component {
       .then(function(doc) {
         if (doc.exists) {
           return new user(doc.data().uid, doc.data().first_name, doc.data().last_name, doc.data().email_address,
-            doc.data().age, doc.data().gender, doc.data().classification, doc.data().major, doc.data().interest_tags)
+            doc.data().age, doc.data().gender, doc.data().classification, doc.data().major, doc.data().interest_tags,
+            doc.data().statLibrary, doc.data().achievements)
         } else {
           console.log("No such document!");
         }
@@ -122,6 +126,8 @@ class Backend extends React.Component {
       classification: user.classification,
       major: user.major,
       interest_tags: user.interest_tags,
+      statLibrary: user.statLibrary,
+      achievements: user.achievements
     }
   }
 

@@ -124,6 +124,7 @@ export class Register extends React.Component {
                         
                     </View>
                     <View style={styles.inputView}>
+                                    {/* Name Inputs */}
                         <TextInput
                                     style={styles.inputText}
                                     placeholder='First Name'
